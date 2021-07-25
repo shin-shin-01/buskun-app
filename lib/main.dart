@@ -10,20 +10,29 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    /// - #FF353537 (Black)
+    /// - #FFFFFAFA (White）
+    /// - #FFEEEEEE (defaultBackground grey)
+    final appTheme = ThemeData(
+      primaryColor: Color(0xFF353537),
+      accentColor: Color(0xFFFFFAFA),
+      backgroundColor: Color(0xFFEEEEEE),
+      textTheme: TextTheme(
+          bodyText1: TextStyle(
+            color: Color(0xFFFFFAFA),
+            fontFamily: 'Poppins',
+            fontSize: 15,
+          ),
+          bodyText2: TextStyle(
+            color: Color(0xFF353537),
+            fontFamily: 'Poppins',
+            fontSize: 15,
+          )),
+    );
+
     return MaterialApp(
         title: 'Trainkun',
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          primarySwatch: Colors.blue,
-        ),
+        theme: appTheme,
         // home: LoginWidget(),
         home: HomeWidget());
   }
