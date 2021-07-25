@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../favorite/favorite.dart';
+import '../../model/timetable.dart';
 
 class HomeWidget extends StatefulWidget {
   HomeWidget({Key key}) : super(key: key);
@@ -122,587 +123,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.vertical,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                      child: Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFFF5F5F5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '行先 : ',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        Text(
-                                          '九州大学 (伊都営業所)',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 15,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        '経由 : ',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      Text(
-                                        '周船寺・産学連携交流センター',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 15,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    '14:50',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFF353537),
-                                      fontSize: 25,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                      child: Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFFF5F5F5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '行先 : ',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        Text(
-                                          '九州大学 (伊都営業所)',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 15,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        '経由 : ',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      Text(
-                                        '周船寺・産学連携交流センター',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 15,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    '14:50',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFF353537),
-                                      fontSize: 25,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                      child: Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFFF5F5F5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '行先 : ',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        Text(
-                                          '九州大学 (伊都営業所)',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 15,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        '経由 : ',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      Text(
-                                        '周船寺・産学連携交流センター',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 15,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    '14:50',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFF353537),
-                                      fontSize: 25,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                      child: Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFFF5F5F5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '行先 : ',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        Text(
-                                          '九州大学 (伊都営業所)',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 15,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        '経由 : ',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      Text(
-                                        '周船寺・産学連携交流センター',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 15,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    '14:50',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFF353537),
-                                      fontSize: 25,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                      child: Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFFF5F5F5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '行先 : ',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        Text(
-                                          '九州大学 (伊都営業所)',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 15,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        '経由 : ',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      Text(
-                                        '周船寺・産学連携交流センター',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 15,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    '14:50',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFF353537),
-                                      fontSize: 25,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                      child: Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFFF5F5F5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '行先 : ',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        Text(
-                                          '九州大学 (伊都営業所)',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 15,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        '経由 : ',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      Text(
-                                        '周船寺・産学連携交流センター',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 15,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    '14:50',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFF353537),
-                                      fontSize: 25,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                      child: Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFFF5F5F5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '行先 : ',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        Text(
-                                          '九州大学 (伊都営業所)',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 15,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        '経由 : ',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      Text(
-                                        '周船寺・産学連携交流センター',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 15,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    '14:50',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFF353537),
-                                      fontSize: 25,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
+                    TimetableCard(),
+                    TimetableCard(),
+                    TimetableCard(),
+                    TimetableCard()
                   ],
                 ),
               ),
@@ -855,6 +279,97 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ],
                   )),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TimetableCard extends StatelessWidget {
+  Timetable timetable = Timetable(
+      destination: "九州大学 (伊都営業所)", via: "周船寺・産学連携交流センター", departuteAt: '14:50');
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        color: Color(0xFFF5F5F5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          '行先 : ',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 13,
+                          ),
+                        ),
+                        Text(
+                          timetable.destination,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 15,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        '経由 : ',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 13,
+                        ),
+                      ),
+                      Text(
+                        timetable.via,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 15,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    timetable.departuteAt,
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Color(0xFF353537),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
