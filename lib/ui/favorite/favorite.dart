@@ -73,21 +73,14 @@ class BusPairCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                  child: Text(
-                    '出発 :',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
+                  child: Text('出発 :',
+                      style: Theme.of(context).textTheme.bodyText2),
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Text(
                     bus_pair.origin,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 15,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 )
               ],
@@ -100,19 +93,14 @@ class BusPairCard extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 1),
                   child: Text(
                     '到着 :',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Text(
                     bus_pair.destination,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 15,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 )
               ],

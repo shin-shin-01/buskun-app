@@ -19,10 +19,15 @@ class MyApp extends StatelessWidget {
       backgroundColor: Color(0xFFEEEEEE),
       textTheme: TextTheme(
           bodyText1: TextStyle(
-        color: Color(0xFFFFFAFA),
-        fontFamily: 'Poppins',
-        fontSize: 15,
-      )),
+            color: Color(0xFFFFFAFA),
+            fontFamily: 'Poppins',
+            fontSize: 15,
+          ),
+          bodyText2: TextStyle(
+            color: Color(0xFF353537),
+            fontFamily: 'Poppins',
+            fontSize: 15,
+          )),
     );
 
     return MaterialApp(

@@ -291,19 +291,14 @@ class TimetableCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          '行先 : ',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 13,
-                          ),
-                        ),
+                        Text('行先 : ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 13)),
                         Text(
                           timetable.destination,
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 15,
-                          ),
+                          style: Theme.of(context).textTheme.bodyText2,
                         )
                       ],
                     ),
@@ -311,19 +306,14 @@ class TimetableCard extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Text(
-                        '経由 : ',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 13,
-                        ),
-                      ),
+                      Text('経由 : ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              .copyWith(fontSize: 13)),
                       Text(
                         timetable.via,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 15,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText2,
                       )
                     ],
                   )
@@ -337,11 +327,10 @@ class TimetableCard extends StatelessWidget {
                 children: [
                   Text(
                     timetable.departuteAt,
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 25,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(fontSize: 25),
                   )
                 ],
               ),
