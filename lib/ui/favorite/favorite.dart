@@ -26,20 +26,23 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      BusPairCard(),
-                      BusPairCard(),
-                      BusPairCard(),
-                      BusPairCard()
-                    ],
+                child: Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).backgroundColor,
+                    ),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        BusPairCard(),
+                        BusPairCard(),
+                        BusPairCard(),
+                        BusPairCard()
+                      ],
+                    ),
                   ),
                 ),
               ),
