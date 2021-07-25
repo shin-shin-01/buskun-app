@@ -21,7 +21,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFF353537),
+      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -30,12 +30,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               width: double.infinity,
               height: 50,
               decoration: BoxDecoration(
-                color: Color(0xFF353537),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xFFFFFAFA),
-                  )
-                ],
+                color: Theme.of(context).primaryColor,
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -48,7 +43,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       },
                       child: Icon(
                         Icons.arrow_back_ios,
-                        color: Color(0xFFFFFAFA),
+                        color: Theme.of(context).accentColor,
                         size: 30,
                       ),
                     ),
@@ -56,15 +51,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                   Expanded(
                     child: Align(
                       alignment: Alignment(0, 0),
-                      child: Text(
-                        'ばすくん',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: Color(0xFFFFFAFA),
-                          fontSize: 25,
-                        ),
-                      ),
+                      child: Text('ばすくん',
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .copyWith(fontSize: 25)),
                     ),
                   ),
                   Padding(
@@ -75,14 +67,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                             context: context,
                             builder: (BuildContext context) {
                               return SimpleDialog(
-                                title: Text(
-                                  "お気に入りバス停",
-                                  style: TextStyle(
-                                    color: Color(0xFFFFFAFA),
-                                    fontFamily: 'Poppins',
-                                    fontSize: 17,
-                                  ),
-                                ),
+                                title: Text("お気に入りバス停",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .copyWith(fontSize: 17)),
                                 children: [
                                   SizedBox(
                                       child: FavoriteWidget(),
@@ -92,7 +81,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       width: MediaQuery.of(context).size.width *
                                           0.8),
                                 ],
-                                backgroundColor: Color(0xFF353537),
+                                backgroundColor: Theme.of(context).primaryColor,
                               );
                             });
                       },
@@ -117,7 +106,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 width: double.infinity,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE),
+                  color: Theme.of(context).backgroundColor,
                 ),
                 child: ListView(
                   padding: EdgeInsets.zero,
@@ -135,10 +124,10 @@ class _HomeWidgetState extends State<HomeWidget> {
               width: double.infinity,
               height: 100,
               decoration: BoxDecoration(
-                color: Color(0xFF353537),
+                color: Theme.of(context).primaryColor,
                 shape: BoxShape.rectangle,
                 border: Border.all(
-                  color: Color(0xFF353537),
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               child: Padding(
@@ -150,7 +139,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                         right: 20.0,
                         child: Icon(
                           Icons.add_location_alt_outlined,
-                          color: Color(0xFFFFFAFA),
+                          color: Theme.of(context).accentColor,
                           size: 30,
                         ),
                       ),
@@ -166,15 +155,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '出発時刻',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFFFFFAFA),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
+                                Text('出発時刻',
+                                    textAlign: TextAlign.start,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1),
                                 InkWell(
                                   onTap: () async {
                                     await DatePicker.showDatePicker(context,
@@ -183,16 +167,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       setState(() => datePicked = date);
                                     }, currentTime: DateTime.now());
                                   },
-                                  child: Text(
-                                    '14:27',
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      color: Color(0xFFFFFAFA),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 35,
-                                      fontStyle: FontStyle.normal,
-                                    ),
-                                  ),
+                                  child: Text('14:27',
+                                      textAlign: TextAlign.start,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .copyWith(fontSize: 35)),
                                 )
                               ],
                             ),
@@ -223,18 +203,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       onChanged: (value) {
                                         setState(() => dropDownValue1 = value);
                                       },
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFFFFFAFA),
-                                        fontSize: 15,
-                                      ),
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                       underline: SizedBox(),
                                       icon: Icon(
                                         Icons.where_to_vote,
-                                        color: Color(0xFFFFFAFA),
+                                        color: Theme.of(context).accentColor,
                                         size: 15,
                                       ),
-                                      dropdownColor: Color(0xFF353537),
+                                      dropdownColor:
+                                          Theme.of(context).primaryColor,
                                       elevation: 2,
                                     ),
                                   ),
@@ -256,17 +234,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       onChanged: (value) {
                                         setState(() => dropDownValue2 = value);
                                       },
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFFFFFAFA),
-                                        fontSize: 15,
-                                      ),
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                       underline: SizedBox(),
                                       icon: FaIcon(
                                           FontAwesomeIcons.fontAwesomeFlag,
-                                          color: Color(0xFFFFFAFA),
+                                          color: Theme.of(context).accentColor,
                                           size: 15),
-                                      dropdownColor: Color(0xFF353537),
+                                      dropdownColor:
+                                          Theme.of(context).primaryColor,
                                       elevation: 2,
                                     ),
                                   )
@@ -296,7 +272,7 @@ class TimetableCard extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Color(0xFFF5F5F5),
+        color: Theme.of(context).accentColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
@@ -363,7 +339,7 @@ class TimetableCard extends StatelessWidget {
                     timetable.departuteAt,
                     style: TextStyle(
                       fontFamily: 'Montserrat',
-                      color: Color(0xFF353537),
+                      color: Theme.of(context).primaryColor,
                       fontSize: 25,
                     ),
                   )

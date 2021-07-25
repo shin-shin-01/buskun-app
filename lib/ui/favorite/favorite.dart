@@ -20,7 +20,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Color(0xFFEEEEEE),
+            color: Theme.of(context).backgroundColor,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -29,7 +29,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
+                    color: Theme.of(context).backgroundColor,
                   ),
                   child: ListView(
                     padding: EdgeInsets.zero,
@@ -58,7 +58,7 @@ class BusPairCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      color: Color(0xFFF5F5F5),
+      color: Theme.of(context).accentColor,
       child: Padding(
         padding: EdgeInsets.fromLTRB(5, 3, 3, 3),
         child: Column(
