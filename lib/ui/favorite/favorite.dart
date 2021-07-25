@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../model/bus_pair.dart';
 
 class FavoriteWidget extends StatefulWidget {
   FavoriteWidget({Key key}) : super(key: key);
@@ -8,8 +9,6 @@ class FavoriteWidget extends StatefulWidget {
 }
 
 class _FavoriteWidgetState extends State<FavoriteWidget> {
-  String dropDownValue1 = "九大学研都市駅";
-  String dropDownValue2 = "九大学研都市駅";
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
