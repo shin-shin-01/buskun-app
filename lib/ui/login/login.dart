@@ -1,4 +1,4 @@
-import '../home/home.dart';
+import '../home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -107,7 +107,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => HomeWidget(),
+                                      builder: (context) => HomeView(),
                                     ),
                                   );
                                 },
