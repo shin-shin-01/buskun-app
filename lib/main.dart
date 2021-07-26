@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import './ui/login/login.dart';
-import './ui/home/home.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+import 'services_locator.dart';
+import './ui/login/login.dart';
+import './ui/home/home_view.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await setupServiceLocator();
   runApp(MyApp());
 }
 
@@ -34,6 +40,6 @@ class MyApp extends StatelessWidget {
         title: 'Trainkun',
         theme: appTheme,
         // home: LoginWidget(),
-        home: HomeWidget());
+        home: HomeView());
   }
 }
