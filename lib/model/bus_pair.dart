@@ -3,7 +3,7 @@ class BusPair {
   final String destination;
 
   BusPair({
-    this.origin,
-    this.destination,
+    required this.origin,
+    required this.destination,
   });
 }

@@ -50,7 +50,7 @@ class HomeView extends StatelessWidget {
                             textAlign: TextAlign.start,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(fontSize: 25)),
                       ),
                     ),
@@ -65,7 +65,7 @@ class HomeView extends StatelessWidget {
                                   title: Text("お気に入りバス停",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1
+                                          .bodyText1!
                                           .copyWith(fontSize: 17)),
                                   children: [
                                     SizedBox(
@@ -169,7 +169,7 @@ class HomeView extends StatelessWidget {
                                         textAlign: TextAlign.start,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1
+                                            .bodyText1!
                                             .copyWith(fontSize: 35)),
                                   )
                                 ],
@@ -198,7 +198,8 @@ class HomeView extends StatelessWidget {
                                           );
                                         }).toList(),
                                         onChanged: (value) {
-                                          model.setDropDownValueOrigin(value);
+                                          model.setDropDownValueOrigin(
+                                              value.toString());
                                         },
                                         style: Theme.of(context)
                                             .textTheme
@@ -230,7 +231,7 @@ class HomeView extends StatelessWidget {
                                         }).toList(),
                                         onChanged: (value) {
                                           model.setDropDownValueDestination(
-                                              value);
+                                              value.toString());
                                         },
                                         style: Theme.of(context)
                                             .textTheme
@@ -295,7 +296,7 @@ class TimetableCard extends StatelessWidget {
                         Text('行先 : ',
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2
+                                .bodyText2!
                                 .copyWith(fontSize: 13)),
                         Text(
                           timetable.destination,
@@ -310,7 +311,7 @@ class TimetableCard extends StatelessWidget {
                       Text('経由 : ',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText2
+                              .bodyText2!
                               .copyWith(fontSize: 13)),
                       Text(
                         timetable.via,
@@ -327,10 +328,10 @@ class TimetableCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    timetable.departuteAt,
+                    timetable.departureAt,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText2
+                        .bodyText2!
                         .copyWith(fontSize: 25),
                   )
                 ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../model/bus_pair.dart';
 
 class FavoriteWidget extends StatefulWidget {
-  FavoriteWidget({Key key}) : super(key: key);
+  FavoriteWidget({Key? key}) : super(key: key);
 
   @override
   _FavoriteWidgetState createState() => _FavoriteWidgetState();
