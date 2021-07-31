@@ -105,15 +105,11 @@ class HomeView extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Theme.of(context).backgroundColor,
                   ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      TimetableCard(),
-                      TimetableCard(),
-                      TimetableCard(),
-                      TimetableCard()
-                    ],
+                  child: ListView.builder(
+                    itemCount: model.timetables.length,
+                    itemBuilder: (_, i) {
+                      return TimetableCard(timetable: model.timetables[i]);
+                    },
                   ),
                 ),
               ),
@@ -265,8 +261,9 @@ class HomeView extends StatelessWidget {
 }
 
 class TimetableCard extends StatelessWidget {
-  Timetable timetable = Timetable(
-      destination: "九州大学 (伊都営業所)", via: "周船寺・産学連携交流センター", departuteAt: '14:50');
+  final Timetable timetable;
+
+  const TimetableCard({Key? key, required this.timetable}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
