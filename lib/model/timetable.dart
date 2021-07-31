@@ -1,13 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Timetable {
   final String destination;
 
   final String via;
 
-  final String departuteAt;
+  final String departureAt;
 
-  Timetable({
-    this.destination,
-    this.via,
-    this.departuteAt,
-  });
+  final String arriveAt;
+
+  Timetable(
+      {required this.destination,
+      required this.via,
+      required this.departureAt,
+      required this.arriveAt});
 }
