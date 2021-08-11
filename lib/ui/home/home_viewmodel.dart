@@ -1,3 +1,4 @@
+import 'package:built_value/json_object.dart';
 import 'package:stacked/stacked.dart';
 import '../../service/firestore_service.dart';
 import '../../services_locator.dart';
@@ -55,5 +56,22 @@ class HomeViewModel extends BaseViewModel {
   late List<BusPair> busPairs;
   Future<void> setBusPairs() async {
     busPairs = await _firestore.getFavoriteBusPairs("cPfrTqRdgleVhGoMcFA0");
+  }
+
+  // お気に入りバス停.登録
+  Future<void> postFavoriteBusPair() async {
+    await _firestore.postFavoriteBusPair(
+        "cPfrTqRdgleVhGoMcFA0", dropDownValueOrigin, dropDownValueDestination);
+    await setBusPairs();
+    notifyListeners();
+  }
+
+  // バス停が登録されているか
+  bool notRegisteredBusPair() {
+    return busPairs
+        .where((busPair) =>
+            busPair.origin == dropDownValueOrigin &&
+            busPair.destination == dropDownValueDestination)
+        .isEmpty;
   }
 }
