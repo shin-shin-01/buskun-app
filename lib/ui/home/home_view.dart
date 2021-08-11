@@ -131,11 +131,21 @@ class HomeView extends StatelessWidget {
                         Positioned(
                           top: 15.0,
                           right: 20.0,
-                          child: Icon(
-                            Icons.add_location_alt_outlined,
-                            color: Theme.of(context).accentColor,
-                            size: 30,
-                          ),
+                          child: model.notRegisteredBusPair()
+                              ? IconButton(
+                                  onPressed: () =>
+                                      {model.postFavoriteBusPair()},
+                                  icon: Icon(
+                                    Icons.add_location_alt_outlined,
+                                    color: Theme.of(context).accentColor,
+                                    size: 30,
+                                  ),
+                                )
+                              : Icon(
+                                  Icons.location_on,
+                                  color: Theme.of(context).accentColor,
+                                  size: 30,
+                                ),
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,

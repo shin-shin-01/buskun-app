@@ -40,8 +40,9 @@ class FirestoreService {
   }
 
   // お気に入りバス停を追加
-  void setFavoriteBusPair(String userId, String origin, String destination) {
-    users.doc(userId).collection("favorites").doc().set(
+  Future<void> postFavoriteBusPair(
+      String userId, String origin, String destination) async {
+    await users.doc(userId).collection("favorites").doc().set(
         {"origin": origin, "destination": destination},
         SetOptions(merge: true));
   }
