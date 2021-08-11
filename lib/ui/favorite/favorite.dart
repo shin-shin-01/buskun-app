@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import '../home/home_viewmodel.dart';
 import '../../model/bus_pair.dart';
 
 class FavoriteWidget extends StatelessWidget {
-  final List<BusPair> busPairs;
-
-  const FavoriteWidget({Key? key, required this.busPairs}) : super(key: key);
+  final HomeViewModel model;
+  const FavoriteWidget({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,23 @@ class FavoriteWidget extends StatelessWidget {
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
-                      itemCount: busPairs.length,
+                      itemCount: model.busPairs.length,
                       itemBuilder: (_, i) {
-                        return BusPairCard(busPair: busPairs[i]);
+                        return Slidable(
+                          actionPane: SlidableDrawerActionPane(),
+                          actionExtentRatio: 0.25,
+                          child: BusPairCard(busPair: model.busPairs[i]),
+                          secondaryActions: <Widget>[
+                            IconSlideAction(
+                              caption: 'Delete',
+                              color: Colors.red,
+                              icon: Icons.delete,
+                              onTap: () {
+                                model.deleteFavoriteBusPair(model.busPairs[i]);
+                              },
+                            ),
+                          ],
+                        );
                       },
                     ),
                   ),
