@@ -74,4 +74,11 @@ class HomeViewModel extends BaseViewModel {
             busPair.destination == dropDownValueDestination)
         .isEmpty;
   }
+
+  // お気に入りバス停.削除
+  Future<void> deleteFavoriteBusPair(BusPair busPair) async {
+    await _firestore.deleteFavoriteBusPair("cPfrTqRdgleVhGoMcFA0", busPair);
+    await setBusPairs();
+    notifyListeners();
+  }
 }
