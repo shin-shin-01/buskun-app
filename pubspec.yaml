@@ -24,6 +24,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   provider: ^5.0.0
   stacked: ^2.2.1
+  flutter_slidable:
 
 
 dev_dependencies:
