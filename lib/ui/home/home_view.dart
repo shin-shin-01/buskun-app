@@ -69,7 +69,8 @@ class HomeView extends StatelessWidget {
                                           .copyWith(fontSize: 17)),
                                   children: [
                                     SizedBox(
-                                        child: FavoriteWidget(),
+                                        child: FavoriteWidget(
+                                            busPairs: model.busPairs),
                                         height:
                                             MediaQuery.of(context).size.height *
                                                 0.5,

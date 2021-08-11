@@ -2,6 +2,7 @@ import 'package:stacked/stacked.dart';
 import '../../service/firestore_service.dart';
 import '../../services_locator.dart';
 import '../../model/timetable.dart';
+import '../../model/bus_pair.dart';
 
 ///
 class HomeViewModel extends BaseViewModel {
@@ -44,8 +45,15 @@ class HomeViewModel extends BaseViewModel {
         await _firestore.getDestinationBusstopIds(dropDownValueOrigin);
     dropDownValueDestination = dropDownItemsDestinations.first;
     await setTimetables();
+    await setBusPairs();
 
     setBusy(false);
     notifyListeners();
+  }
+
+  // お気に入りバス停
+  late List<BusPair> busPairs;
+  Future<void> setBusPairs() async {
+    busPairs = await _firestore.getFavoriteBusPairs("cPfrTqRdgleVhGoMcFA0");
   }
 }
