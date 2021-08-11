@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:trainkun/service/navigation.dart';
 
 import 'services_locator.dart';
 import './ui/login/login.dart';
@@ -14,6 +15,8 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  final _navigation = servicesLocator<NavigationService>();
+
   @override
   Widget build(BuildContext context) {
     /// - #FF353537 (Black)
@@ -39,6 +42,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Trainkun',
         theme: appTheme,
+        navigatorKey: _navigation.navigatorKey,
         // home: LoginWidget(),
         home: HomeView());
   }
