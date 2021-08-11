@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../model/bus_pair.dart';
 
-class FavoriteWidget extends StatefulWidget {
-  FavoriteWidget({Key? key}) : super(key: key);
+class FavoriteWidget extends StatelessWidget {
+  final List<BusPair> busPairs;
 
-  @override
-  _FavoriteWidgetState createState() => _FavoriteWidgetState();
-}
-
-class _FavoriteWidgetState extends State<FavoriteWidget> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  const FavoriteWidget({Key? key, required this.busPairs}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -33,15 +27,13 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                     decoration: BoxDecoration(
                       color: Theme.of(context).backgroundColor,
                     ),
-                    child: ListView(
+                    child: ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
-                      children: [
-                        BusPairCard(),
-                        BusPairCard(),
-                        BusPairCard(),
-                        BusPairCard()
-                      ],
+                      itemCount: busPairs.length,
+                      itemBuilder: (_, i) {
+                        return BusPairCard(busPair: busPairs[i]);
+                      },
                     ),
                   ),
                 ),
@@ -55,7 +47,9 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
 }
 
 class BusPairCard extends StatelessWidget {
-  BusPair bus_pair = BusPair(origin: "九大学研都市駅", destination: "産学連携交流センター");
+  final BusPair busPair;
+
+  const BusPairCard({Key? key, required this.busPair}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +73,7 @@ class BusPairCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Text(
-                    bus_pair.origin,
+                    busPair.origin,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 )
@@ -99,7 +93,7 @@ class BusPairCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Text(
-                    bus_pair.destination,
+                    busPair.destination,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 )
