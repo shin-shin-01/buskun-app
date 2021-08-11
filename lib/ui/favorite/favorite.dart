@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:trainkun/service/navigation.dart';
+import '../../services_locator.dart';
 import '../home/home_viewmodel.dart';
 import '../../model/bus_pair.dart';
 
@@ -10,6 +12,8 @@ class FavoriteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _navigation = servicesLocator<NavigationService>();
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -37,7 +41,8 @@ class FavoriteWidget extends StatelessWidget {
                         return Slidable(
                           actionPane: SlidableDrawerActionPane(),
                           actionExtentRatio: 0.25,
-                          child: BusPairCard(busPair: model.busPairs[i]),
+                          child: BusPairCard(
+                              model: model, busPair: model.busPairs[i]),
                           secondaryActions: <Widget>[
                             IconSlideAction(
                               caption: 'Delete',
@@ -45,6 +50,8 @@ class FavoriteWidget extends StatelessWidget {
                               icon: Icons.delete,
                               onTap: () {
                                 model.deleteFavoriteBusPair(model.busPairs[i]);
+                                // TODO: fix - now, pop when delete BusPair cuz BusPairCard not removed
+                                _navigation.pop();
                               },
                             ),
                           ],
@@ -63,59 +70,69 @@ class FavoriteWidget extends StatelessWidget {
 }
 
 class BusPairCard extends StatelessWidget {
+  final HomeViewModel model;
   final BusPair busPair;
 
-  const BusPairCard({Key? key, required this.busPair}) : super(key: key);
+  const BusPairCard({Key? key, required this.model, required this.busPair})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _navigation = servicesLocator<NavigationService>();
+
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       color: Theme.of(context).accentColor,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(5, 3, 3, 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                  child: Text('出発 :',
-                      style: Theme.of(context).textTheme.bodyText2),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: Text(
-                    busPair.origin,
-                    style: Theme.of(context).textTheme.bodyText2,
+      child: new InkWell(
+        onTap: () {
+          model.setBusPairFromFavorite(busPair);
+          _navigation.pop();
+        },
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(5, 3, 3, 3),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 1),
+                    child: Text('出発 :',
+                        style: Theme.of(context).textTheme.bodyText2),
                   ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                  child: Text(
-                    '到着 :',
-                    style: Theme.of(context).textTheme.bodyText2,
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Text(
+                      busPair.origin,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 1),
+                    child: Text(
+                      '到着 :',
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: Text(
-                    busPair.destination,
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                )
-              ],
-            )
-          ],
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Text(
+                      busPair.destination,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

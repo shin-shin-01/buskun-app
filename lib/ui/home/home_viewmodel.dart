@@ -81,4 +81,18 @@ class HomeViewModel extends BaseViewModel {
     await setBusPairs();
     notifyListeners();
   }
+
+  // バス停をお気に入りから選択
+  Future<void> setBusPairFromFavorite(BusPair busPair) async {
+    // 出発地点を登録
+    dropDownValueOrigin = busPair.origin;
+    // 目的地一覧を登録
+    dropDownItemsDestinations =
+        await _firestore.getDestinationBusstopIds(dropDownValueOrigin);
+    // 目的地を登録
+    dropDownValueDestination = busPair.destination;
+    // 時刻表を登録
+    await setTimetables();
+    notifyListeners();
+  }
 }
