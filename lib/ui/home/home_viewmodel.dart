@@ -11,6 +11,13 @@ import 'package:http/http.dart' as http;
 class HomeViewModel extends BaseViewModel {
   final _firestore = servicesLocator<FirestoreService>();
 
+  // 時刻表の色付け
+  Map<String, Color> lineColor = {
+    "九州大学線〔周船寺経由〕": Color(0xFF50998F),
+    "九州大学線〔学園通経由〕": Color(0xFFC67B82),
+    "九州大学線〔横浜西経由〕": Color(0xFF5B5E7A),
+  };
+
   late String origin;
   late String destination;
   late String timeString;
