@@ -236,7 +236,9 @@ class HomeView extends StatelessWidget {
           child: ListView.builder(
             itemCount: model.timetables[type]!.length,
             itemBuilder: (_, i) {
-              return TimetableCard(timetable: model.timetables[type]![i]);
+              return TimetableCard(
+                  timetable: model.timetables[type]![i],
+                  lineColor: model.lineColor);
             },
           ),
         ));
@@ -275,63 +277,68 @@ class HomeView extends StatelessWidget {
 
 class TimetableCard extends StatelessWidget {
   final Timetable timetable;
+  final Map<String, Color> lineColor;
 
-  const TimetableCard({Key? key, required this.timetable}) : super(key: key);
+  const TimetableCard(
+      {Key? key, required this.timetable, required this.lineColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
-      child: Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Theme.of(context).accentColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: Text(
-                  timetable.line,
-                  style: Theme.of(context).textTheme.bodyText2,
-                )),
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        height: 70,
+        child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: Theme.of(context).accentColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  Text(timetable.line,
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: lineColor[timetable.line])),
                   Container(
-                    width: 70,
-                    child: Text(
-                      timetable.departureAt,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(fontSize: 24),
+                      child: VerticalDivider(
+                          thickness: 3, color: lineColor[timetable.line])),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 70,
+                          child: Text(
+                            timetable.departureAt,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontSize: 24),
+                          ),
+                        ),
+                        Container(
+                          width: 30,
+                          child: Icon(Icons.arrow_forward),
+                        ),
+                        Container(
+                          width: 70,
+                          child: Text(
+                            timetable.arriveAt,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontSize: 24),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Container(
-                    width: 30,
-                    child: Icon(Icons.arrow_forward),
-                  ),
-                  Container(
-                    width: 70,
-                    child: Text(
-                      timetable.arriveAt,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(fontSize: 24),
-                    ),
-                  ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            )));
   }
 }
