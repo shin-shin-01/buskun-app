@@ -46,3 +46,6 @@ app.*.map.json
 /android/app/release
 
 ios/Runner/GoogleService-Info.plist
+
+# 秘密鍵
+script/secret-key.json
