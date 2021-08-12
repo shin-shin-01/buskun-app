@@ -14,7 +14,7 @@ class FirestoreService {
         .doc(departuteDocid)
         .collection(destinationDocid)
         .where('departureAt', isGreaterThanOrEqualTo: timeString)
-        .limit(8)
+        .limit(15)
         .get()
         .then((QuerySnapshot querySnapshot) => querySnapshot.docs
             .map((doc) => Timetable.fromFirestore(doc))
