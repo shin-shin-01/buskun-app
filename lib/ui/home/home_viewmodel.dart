@@ -21,7 +21,7 @@ class HomeViewModel extends BaseViewModel {
   late String destination;
   late String timeString;
 
-  late List<Timetable> timetables;
+  late Map<String, List<Timetable>> timetables = {"平日": [], "土・日": []};
 
   void initialize() async {
     setBusy(true);
@@ -41,8 +41,12 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Future<void> setTimetables() async {
-    timetables =
+    List<Timetable> allTimetables =
         await _firestore.getTargetTimetables(origin, destination, timeString);
+    timetables["平日"] =
+        allTimetables.where((timetable) => !timetable.isHoliday).toList();
+    timetables["土・日"] =
+        allTimetables.where((timetable) => timetable.isHoliday).toList();
   }
 
   // バス停をお気に入りから選択
