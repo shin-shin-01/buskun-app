@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:share/share.dart';
 import '../../shared/loading.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../favorite/favorite.dart';
@@ -200,8 +201,7 @@ class HomeView extends StatelessWidget {
             itemCount: model.timetables[type]!.length,
             itemBuilder: (_, i) {
               return TimetableCard(
-                  timetable: model.timetables[type]![i],
-                  lineColor: model.lineColor);
+                  timetable: model.timetables[type]![i], model: model);
             },
           ),
         ));
@@ -242,10 +242,9 @@ class HomeView extends StatelessWidget {
 
 class TimetableCard extends StatelessWidget {
   final Timetable timetable;
-  final Map<String, Color> lineColor;
+  final HomeViewModel model;
 
-  const TimetableCard(
-      {Key? key, required this.timetable, required this.lineColor})
+  const TimetableCard({Key? key, required this.timetable, required this.model})
       : super(key: key);
 
   @override
@@ -258,46 +257,53 @@ class TimetableCard extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(timetable.line,
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: lineColor[timetable.line])),
-                  Container(
-                      child: VerticalDivider(
-                          thickness: 3, color: lineColor[timetable.line])),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          width: 65,
-                          child: Text(
-                            timetable.departureAt,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(fontSize: 22),
-                          ),
-                        ),
-                        Text(
-                          " / " + timetable.arriveAt,
+            child: new InkWell(
+                onLongPress: () => Share.share(timetable.toShareSentence(
+                    model.origin, model.destination, model.isReverse)),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(timetable.line,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!
-                              .copyWith(fontSize: 18),
+                              .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: model.lineColor[timetable.line])),
+                      Container(
+                          child: VerticalDivider(
+                              thickness: 3,
+                              color: model.lineColor[timetable.line])),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              width: 65,
+                              child: Text(
+                                timetable.departureAt,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(fontSize: 22),
+                              ),
+                            ),
+                            Text(
+                              " / " + timetable.arriveAt,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(fontSize: 18),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )));
+                      )
+                    ],
+                  ),
+                ))));
   }
 }

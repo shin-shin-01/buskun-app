@@ -23,4 +23,25 @@ class Timetable {
       arriveAt: data['arriveAt'] as String,
     );
   }
+
+  String toShareSentence(String departure, String arrive, bool isReverse) {
+    if (isReverse) {
+      final tmp = departure;
+      departure = arrive;
+      arrive = tmp;
+    }
+
+    return """$line
+
+    $departure
+    $departureAt 発
+
+    $arrive
+    $arriveAt 着"""
+        .splitMapJoin(
+      RegExp(r'^', multiLine: true),
+      onMatch: (_) => '\n',
+      onNonMatch: (n) => n.trim(),
+    );
+  }
 }

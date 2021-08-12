@@ -25,6 +25,7 @@ dependencies:
   stacked: ^2.2.1
   flutter_spinkit:
   flutter_launcher_icons:
+  share: ^2.0.4
 
 
 dev_dependencies:
