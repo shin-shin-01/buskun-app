@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../favorite/favorite.dart';
 import '../../model/timetable.dart';
 import './home_viewmodel.dart';
@@ -98,20 +97,9 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  child: ListView.builder(
-                    itemCount: model.timetables.length,
-                    itemBuilder: (_, i) {
-                      return TimetableCard(timetable: model.timetables[i]);
-                    },
-                  ),
-                ),
-              ),
+              // 時刻表メイン
+              // - タブ / 時刻表
+              Expanded(child: _timeTableView(context, model)),
               Container(
                 width: double.infinity,
                 height: 100,
@@ -203,6 +191,46 @@ class HomeView extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // 時刻表メイン
+  Widget _timeTableView(context, HomeViewModel model) {
+    List<Tab> tabs = [Tab(text: "平日"), Tab(text: "土・日")];
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+            appBar: PreferredSize(
+                preferredSize: Size.fromHeight(50),
+                child: AppBar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    bottom: PreferredSize(
+                        preferredSize: Size.fromHeight(20),
+                        child: TabBar(
+                          indicatorColor: Theme.of(context).primaryColor,
+                          labelColor: Theme.of(context).accentColor,
+                          unselectedLabelColor: Theme.of(context).accentColor,
+                          labelStyle: TextStyle(fontSize: 12),
+                          tabs: tabs,
+                        )))),
+            body: TabBarView(
+                children: tabs
+                    .map((tab) => _timeTables(context, model, tab.text))
+                    .toList())));
+  }
+
+  Widget _timeTables(context, HomeViewModel model, type) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+      ),
+      child: ListView.builder(
+        itemCount: model.timetables[type]!.length,
+        itemBuilder: (_, i) {
+          return TimetableCard(timetable: model.timetables[type]![i]);
+        },
       ),
     );
   }
