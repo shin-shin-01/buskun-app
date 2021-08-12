@@ -90,41 +90,25 @@ class HomeView extends StatelessWidget {
                                     child: Padding(
                                         padding:
                                             EdgeInsets.fromLTRB(10, 0, 5, 0),
-                                        child: Stack(children: [
-                                          Positioned(
-                                              top: 10,
-                                              right: 0,
-                                              child: Transform.scale(
-                                                  scale: 2,
-                                                  child: IconButton(
-                                                      onPressed: () => {
-                                                            model
-                                                                .reverseBusPair()
-                                                          },
-                                                      icon: Icon(
-                                                        Icons.repeat,
-                                                        color: Colors.white,
-                                                      )))),
-                                          GestureDetector(
-                                            onTap: () async {
-                                              // バス停撰択 Dialog
-                                              await _showDialog(context, model);
-                                            },
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                _busRouteView(
-                                                    context, model, true),
-                                                _busRouteView(
-                                                    context, model, false),
-                                              ],
-                                            ),
-                                          )
-                                        ])),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            // バス停撰択 Dialog
+                                            await _showDialog(context, model);
+                                          },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              _busRouteView(
+                                                  context, model, true),
+                                              _busRouteView(
+                                                  context, model, false),
+                                            ],
+                                          ),
+                                        )),
                                   ),
                                 ],
                               ),
@@ -143,27 +127,38 @@ class HomeView extends StatelessWidget {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return SimpleDialog(
-            title: Row(children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Icon(Icons.directions_bus,
-                    color: Theme.of(context).accentColor),
-              ),
-              Text("バス停一覧",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 17))
-            ]),
-            children: [
-              SizedBox(
-                  child: FavoriteWidget(model: model),
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  width: MediaQuery.of(context).size.width * 0.8),
-            ],
-            backgroundColor: Theme.of(context).primaryColor,
-          );
+          // 乗降車の切り替えをするために Stateful
+          return StatefulBuilder(builder: (context, setState) {
+            return SimpleDialog(
+              title: Row(children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  child: Icon(Icons.directions_bus,
+                      color: Theme.of(context).accentColor),
+                ),
+                Expanded(
+                    child: Text("バス停一覧",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontSize: 17))),
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        model.reverseBusPair();
+                      });
+                    },
+                    icon: Icon(Icons.repeat, color: Colors.white, size: 30)),
+              ]),
+              children: [
+                SizedBox(
+                    child: FavoriteWidget(model: model),
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    width: MediaQuery.of(context).size.width * 0.9),
+              ],
+              backgroundColor: Theme.of(context).primaryColor,
+            );
+          });
         });
   }
 
@@ -214,10 +209,10 @@ class HomeView extends StatelessWidget {
 
   Widget _busRouteView(context, HomeViewModel model, bool isDepartute) {
     return Padding(
-        padding: EdgeInsets.fromLTRB(15, 5, 10, 0),
+        padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
         child: Row(children: [
           Container(
-            padding: EdgeInsets.all(3.5),
+            padding: EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               border: Border.all(color: Colors.blue, width: 2),
@@ -233,7 +228,9 @@ class HomeView extends StatelessWidget {
           Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child: Text(
-                isDepartute ? model.origin : model.destination,
+                (isDepartute ^ model.isReverse)
+                    ? model.origin
+                    : model.destination,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
@@ -274,33 +271,27 @@ class TimetableCard extends StatelessWidget {
                       child: VerticalDivider(
                           thickness: 3, color: lineColor[timetable.line])),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Container(
-                          width: 70,
+                          width: 65,
                           child: Text(
                             timetable.departureAt,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2!
-                                .copyWith(fontSize: 24),
+                                .copyWith(fontSize: 22),
                           ),
                         ),
-                        Container(
-                          width: 30,
-                          child: Icon(Icons.arrow_forward),
-                        ),
-                        Container(
-                          width: 70,
-                          child: Text(
-                            timetable.arriveAt,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(fontSize: 24),
-                          ),
+                        Text(
+                          " / " + timetable.arriveAt,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(fontSize: 18),
                         ),
                       ],
                     ),

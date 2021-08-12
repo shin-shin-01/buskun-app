@@ -18,6 +18,9 @@ class HomeViewModel extends BaseViewModel {
     "九州大学線〔横浜西経由〕": Color(0xFF5B5E7A),
   };
 
+  // バスを乗車降車を逆にするか？
+  late bool isReverse = false;
+
   late String origin;
   late String destination;
   late String timeString;
@@ -89,13 +92,8 @@ class HomeViewModel extends BaseViewModel {
   }
 
   // 出発/到着を変更
-  Future<void> reverseBusPair() async {
-    String tmp = origin;
-    origin = destination;
-    destination = tmp;
-
-    // 時刻表を登録
-    await setTimetables();
+  void reverseBusPair() {
+    isReverse = !isReverse;
     notifyListeners();
   }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import 'package:trainkun/service/navigation.dart';
 import '../../services_locator.dart';
 import '../home/home_viewmodel.dart';
@@ -43,55 +42,42 @@ class BusPairCard extends StatelessWidget {
     return Container(
       height: 70,
       child: Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Theme.of(context).accentColor,
-        child: new InkWell(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          color: Theme.of(context).accentColor,
+          child: new InkWell(
             onTap: () {
               model.setBusPairFromFavorite(busPair);
               _navigation.pop();
             },
             child: Padding(
-              padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text('乗車 :',
-                          style: Theme.of(context).textTheme.bodyText2),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: Text(
-                          busPair.first,
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        '降車 :',
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: Text(
-                          busPair.second,
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )),
-      ),
+                padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _busRouteView(context, model, true),
+                    _busRouteView(context, model, false),
+                  ],
+                )),
+          )),
+    );
+  }
+
+  Widget _busRouteView(context, HomeViewModel model, bool isDepartute) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Text(isDepartute ? "乗車: " : "降車: ",
+            style: Theme.of(context).textTheme.bodyText2),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+          child: Text(
+            (isDepartute ^ model.isReverse) ? busPair.first : busPair.second,
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+        )
+      ],
     );
   }
 }
