@@ -9,10 +9,12 @@ class FirestoreService {
 
   // [ Timetabel, Timetable, ... ]
   Future<List<Timetable>> getTargetTimetables(
-      String departuteDocid, String destinationDocid) async {
+      String departuteDocid, String destinationDocid, String timeString) async {
     return await buses
         .doc(departuteDocid)
         .collection(destinationDocid)
+        .where('departureAt', isGreaterThanOrEqualTo: timeString)
+        .limit(8)
         .get()
         .then((QuerySnapshot querySnapshot) => querySnapshot.docs
             .map((doc) => Timetable.fromFirestore(doc))

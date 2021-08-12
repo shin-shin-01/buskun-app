@@ -151,7 +151,7 @@ class HomeView extends StatelessWidget {
                                     //     setState(() => datePicked = date);
                                     //   }, currentTime: DateTime.now());
                                     // },
-                                    child: Text('14:27',
+                                    child: Text(model.timeString,
                                         textAlign: TextAlign.start,
                                         style: Theme.of(context)
                                             .textTheme
