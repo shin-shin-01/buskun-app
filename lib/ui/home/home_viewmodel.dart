@@ -9,88 +9,37 @@ import '../../model/bus_pair.dart';
 class HomeViewModel extends BaseViewModel {
   final _firestore = servicesLocator<FirestoreService>();
 
-  late String dropDownValueOrigin;
-  void setDropDownValueOrigin(String value) async {
-    dropDownValueOrigin = value;
-    // reset
-    dropDownItemsDestinations =
-        await _firestore.getDestinationBusstopIds(dropDownValueOrigin);
-    dropDownValueDestination = dropDownItemsDestinations.first;
-    await setTimetables();
-    notifyListeners();
+  late List<BusPair> busPairs;
+  Future<void> setBusPairs() async {
+    busPairs = await _firestore.getBusPairs();
+    // 初期値を登録
+    origin = busPairs.first.first;
+    destination = busPairs.first.second;
   }
 
-  late String dropDownValueDestination;
-  void setDropDownValueDestination(String value) async {
-    dropDownValueDestination = value;
-    await setTimetables();
-    notifyListeners();
-  }
+  late String origin;
+  late String destination;
 
   late List<Timetable> timetables;
 
   Future<void> setTimetables() async {
-    timetables = await _firestore.getTargetTimetables(
-        dropDownValueOrigin, dropDownValueDestination);
+    timetables = await _firestore.getTargetTimetables(origin, destination);
   }
-
-  List<String> dropDownItemsOrigins = [];
-  List<String> dropDownItemsDestinations = [];
 
   void initialize() async {
     setBusy(true);
 
-    dropDownItemsOrigins = await _firestore.getOriginBusstopIds();
-    dropDownValueOrigin = dropDownItemsOrigins.first;
-    dropDownItemsDestinations =
-        await _firestore.getDestinationBusstopIds(dropDownValueOrigin);
-    dropDownValueDestination = dropDownItemsDestinations.first;
-    await setTimetables();
     await setBusPairs();
+    await setTimetables();
 
     setBusy(false);
     notifyListeners();
   }
 
-  // お気に入りバス停
-  late List<BusPair> busPairs;
-  Future<void> setBusPairs() async {
-    busPairs = await _firestore.getFavoriteBusPairs("cPfrTqRdgleVhGoMcFA0");
-  }
-
-  // お気に入りバス停.登録
-  Future<void> postFavoriteBusPair() async {
-    await _firestore.postFavoriteBusPair(
-        "cPfrTqRdgleVhGoMcFA0", dropDownValueOrigin, dropDownValueDestination);
-    await setBusPairs();
-    notifyListeners();
-  }
-
-  // バス停が登録されているか
-  bool notRegisteredBusPair() {
-    return busPairs
-        .where((busPair) =>
-            busPair.origin == dropDownValueOrigin &&
-            busPair.destination == dropDownValueDestination)
-        .isEmpty;
-  }
-
-  // お気に入りバス停.削除
-  Future<void> deleteFavoriteBusPair(BusPair busPair) async {
-    await _firestore.deleteFavoriteBusPair("cPfrTqRdgleVhGoMcFA0", busPair);
-    await setBusPairs();
-    notifyListeners();
-  }
-
   // バス停をお気に入りから選択
   Future<void> setBusPairFromFavorite(BusPair busPair) async {
-    // 出発地点を登録
-    dropDownValueOrigin = busPair.origin;
-    // 目的地一覧を登録
-    dropDownItemsDestinations =
-        await _firestore.getDestinationBusstopIds(dropDownValueOrigin);
-    // 目的地を登録
-    dropDownValueDestination = busPair.destination;
+    origin = busPair.first;
+    destination = busPair.second;
     // 時刻表を登録
     await setTimetables();
     notifyListeners();
