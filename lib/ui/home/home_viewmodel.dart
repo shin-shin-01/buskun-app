@@ -1,4 +1,4 @@
-import 'package:built_value/json_object.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import '../../service/firestore_service.dart';
 import '../../services_locator.dart';
@@ -19,21 +19,30 @@ class HomeViewModel extends BaseViewModel {
 
   late String origin;
   late String destination;
+  late String timeString;
 
   late List<Timetable> timetables;
-
-  Future<void> setTimetables() async {
-    timetables = await _firestore.getTargetTimetables(origin, destination);
-  }
 
   void initialize() async {
     setBusy(true);
 
+    setTimeString();
     await setBusPairs();
     await setTimetables();
 
     setBusy(false);
     notifyListeners();
+  }
+
+  // 現在時刻を設定
+  setTimeString() {
+    final now = DateTime.now();
+    timeString = DateFormat('HH:mm').format(now);
+  }
+
+  Future<void> setTimetables() async {
+    timetables =
+        await _firestore.getTargetTimetables(origin, destination, timeString);
   }
 
   // バス停をお気に入りから選択
