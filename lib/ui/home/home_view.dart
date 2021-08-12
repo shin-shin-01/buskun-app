@@ -29,79 +29,12 @@ class HomeView extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: InkWell(
-                              onTap: () async {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                                color: Theme.of(context).accentColor,
-                                size: 30,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: Alignment(0, 0),
-                              child: Text('ばすくん',
-                                  textAlign: TextAlign.start,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(fontSize: 25)),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                            child: InkWell(
-                              onTap: () async {
-                                await showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return SimpleDialog(
-                                        title: Text("お気に入りバス停",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(fontSize: 17)),
-                                        children: [
-                                          SizedBox(
-                                              child:
-                                                  FavoriteWidget(model: model),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.5,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.8),
-                                        ],
-                                        backgroundColor:
-                                            Theme.of(context).primaryColor,
-                                      );
-                                    });
-                              },
-                              child: Container(
-                                width: 30,
-                                height: 30,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.network(
-                                  'https://picsum.photos/seed/287/600',
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                      child: Text('ばすくん',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: 25)),
                     ),
                     // 時刻表メイン
                     // - タブ / 時刻表
@@ -172,19 +105,25 @@ class HomeView extends StatelessWidget {
                                                         Icons.repeat,
                                                         color: Colors.white,
                                                       )))),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              _busRouteView(
-                                                  context, model, true),
-                                              _busRouteView(
-                                                  context, model, false),
-                                            ],
-                                          ),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              // バス停撰択 Dialog
+                                              await _showDialog(context, model);
+                                            },
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                _busRouteView(
+                                                    context, model, true),
+                                                _busRouteView(
+                                                    context, model, false),
+                                              ],
+                                            ),
+                                          )
                                         ])),
                                   ),
                                 ],
@@ -197,6 +136,35 @@ class HomeView extends StatelessWidget {
               ),
             ),
     );
+  }
+
+  // バス停撰択 Dialog
+  Future<void> _showDialog(context, HomeViewModel model) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Row(children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                child: Icon(Icons.directions_bus,
+                    color: Theme.of(context).accentColor),
+              ),
+              Text("バス停一覧",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 17))
+            ]),
+            children: [
+              SizedBox(
+                  child: FavoriteWidget(model: model),
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  width: MediaQuery.of(context).size.width * 0.8),
+            ],
+            backgroundColor: Theme.of(context).primaryColor,
+          );
+        });
   }
 
   // 時刻表メイン

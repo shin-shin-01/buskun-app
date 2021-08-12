@@ -11,42 +11,21 @@ class FavoriteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return Padding(
+        padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
         child: Container(
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).primaryColor,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
-                    ),
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.vertical,
-                      itemCount: model.busPairs.length,
-                      itemBuilder: (_, i) {
-                        return BusPairCard(
-                            model: model, busPair: model.busPairs[i]);
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          child: ListView.builder(
+            itemCount: model.busPairs.length,
+            itemBuilder: (_, i) {
+              return BusPairCard(model: model, busPair: model.busPairs[i]);
+            },
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 
@@ -61,60 +40,57 @@ class BusPairCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final _navigation = servicesLocator<NavigationService>();
 
-    return Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      color: Theme.of(context).accentColor,
-      child: new InkWell(
-        onTap: () {
-          model.setBusPairFromFavorite(busPair);
-          _navigation.pop();
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(5, 3, 3, 3),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(
+    return Container(
+      height: 70,
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        color: Theme.of(context).accentColor,
+        child: new InkWell(
+            onTap: () {
+              model.setBusPairFromFavorite(busPair);
+              _navigation.pop();
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                    child: Text('出発 :',
-                        style: Theme.of(context).textTheme.bodyText2),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text('乗車 :',
+                          style: Theme.of(context).textTheme.bodyText2),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: Text(
+                          busPair.first,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                      )
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text(
-                      busPair.first,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '降車 :',
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: Text(
+                          busPair.second,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                    child: Text(
-                      '到着 :',
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text(
-                      busPair.second,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
+            )),
       ),
     );
   }
