@@ -91,4 +91,11 @@ class HomeViewModel extends BaseViewModel {
     await setTimetables();
     notifyListeners();
   }
+
+  // 時刻を現在時刻に変更 / 時刻表を更新
+  Future<void> onRefresh() async {
+    await setTime();
+    await setTimetables();
+    notifyListeners();
+  }
 }

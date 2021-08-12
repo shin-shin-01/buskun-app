@@ -227,17 +227,19 @@ class HomeView extends StatelessWidget {
 
   Widget _timeTables(context, HomeViewModel model, type) {
     return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
-      ),
-      child: ListView.builder(
-        itemCount: model.timetables[type]!.length,
-        itemBuilder: (_, i) {
-          return TimetableCard(timetable: model.timetables[type]![i]);
-        },
-      ),
-    );
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).backgroundColor,
+        ),
+        child: new RefreshIndicator(
+          onRefresh: model.onRefresh,
+          child: ListView.builder(
+            itemCount: model.timetables[type]!.length,
+            itemBuilder: (_, i) {
+              return TimetableCard(timetable: model.timetables[type]![i]);
+            },
+          ),
+        ));
   }
 
   Widget _busRouteView(context, HomeViewModel model, bool isDepartute) {
