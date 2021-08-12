@@ -234,16 +234,33 @@ class TimetableCard extends StatelessWidget {
                 )),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-              child: Column(
+              child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text(
-                    timetable.departureAt,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(fontSize: 25),
-                  )
+                  Container(
+                    width: 70,
+                    child: Text(
+                      timetable.departureAt,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontSize: 24),
+                    ),
+                  ),
+                  Container(
+                    width: 30,
+                    child: Icon(Icons.arrow_forward),
+                  ),
+                  Container(
+                    width: 70,
+                    child: Text(
+                      timetable.arriveAt,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontSize: 24),
+                    ),
+                  ),
                 ],
               ),
             )
