@@ -4,29 +4,23 @@ import '../../service/firestore_service.dart';
 import '../../services_locator.dart';
 import '../../model/timetable.dart';
 import '../../model/bus_pair.dart';
+import 'package:http/http.dart' as http;
 
 ///
 class HomeViewModel extends BaseViewModel {
   final _firestore = servicesLocator<FirestoreService>();
 
-  late List<BusPair> busPairs;
-  Future<void> setBusPairs() async {
-    busPairs = await _firestore.getBusPairs();
-    // 初期値を登録
-    origin = busPairs.first.first;
-    destination = busPairs.first.second;
-  }
-
   late String origin;
   late String destination;
   late String timeString;
-
+  late bool isHoliday;
   late Map<String, List<Timetable>> timetables = {"平日": [], "土・日": []};
+  late List<BusPair> busPairs;
 
   void initialize() async {
     setBusy(true);
 
-    setTimeString();
+    await setTime();
     await setBusPairs();
     await setTimetables();
 
@@ -34,10 +28,22 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  // 現在時刻を設定
-  setTimeString() {
+  // 現在時刻 / 平日・土日 を設定
+  setTime() async {
+    // api: http://s-proj.com/utils/holiday.html
+    final response =
+        await http.get("http://s-proj.com/utils/checkHoliday.php?kind=h");
+    isHoliday = response.body == "holiday";
+
     final now = DateTime.now();
     timeString = DateFormat('HH:mm').format(now);
+  }
+
+  Future<void> setBusPairs() async {
+    busPairs = await _firestore.getBusPairs();
+    // 初期値を登録
+    origin = busPairs.first.first;
+    destination = busPairs.first.second;
   }
 
   Future<void> setTimetables() async {
