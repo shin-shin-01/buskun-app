@@ -55,10 +55,21 @@ class HomeViewModel extends BaseViewModel {
         allTimetables.where((timetable) => timetable.isHoliday).toList();
   }
 
-  // バス停をお気に入りから選択
+  // バス停を選択
   Future<void> setBusPairFromFavorite(BusPair busPair) async {
     origin = busPair.first;
     destination = busPair.second;
+    // 時刻表を登録
+    await setTimetables();
+    notifyListeners();
+  }
+
+  // 出発/到着を変更
+  Future<void> reverseBusPair() async {
+    String tmp = origin;
+    origin = destination;
+    destination = tmp;
+
     // 時刻表を登録
     await setTimetables();
     notifyListeners();
