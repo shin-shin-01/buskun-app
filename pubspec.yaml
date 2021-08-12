@@ -21,11 +21,10 @@ dependencies:
   page_transition:
   timeago:
   url_launcher:
-  flutter_signin_button: ^2.0.0
   provider: ^5.0.0
   stacked: ^2.2.1
-  flutter_slidable:
   flutter_spinkit:
+  flutter_launcher_icons:
 
 
 dev_dependencies:
@@ -39,4 +38,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-  
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: 'assets/images/icon.png'
+  image_path_ios: 'assets/images/icon.png'
