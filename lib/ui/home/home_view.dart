@@ -108,7 +108,7 @@ class HomeView extends StatelessWidget {
                     Expanded(child: _timeTableView(context, model)),
                     Container(
                       width: double.infinity,
-                      height: 100,
+                      height: 120,
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
                         shape: BoxShape.rectangle,
@@ -126,7 +126,7 @@ class HomeView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -152,49 +152,44 @@ class HomeView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1!
-                                                  .copyWith(fontSize: 35)),
+                                                  .copyWith(fontSize: 38)),
                                         )
                                       ],
                                     ),
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(0, 20, 10, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.5,
-                                              height: 30,
-                                              child: Text(
-                                                model.origin,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText1,
-                                              )),
-                                          Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.5,
-                                              height: 30,
-                                              child: Text(
-                                                model.destination,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText1,
-                                              )),
-                                        ],
-                                      ),
-                                    ),
+                                        padding:
+                                            EdgeInsets.fromLTRB(10, 0, 5, 0),
+                                        child: Stack(children: [
+                                          Positioned(
+                                              top: 10,
+                                              right: 0,
+                                              child: Transform.scale(
+                                                  scale: 2,
+                                                  child: IconButton(
+                                                      onPressed: () => {
+                                                            model
+                                                                .reverseBusPair()
+                                                          },
+                                                      icon: Icon(
+                                                        Icons.repeat,
+                                                        color: Colors.white,
+                                                      )))),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              _busRouteView(
+                                                  context, model, true),
+                                              _busRouteView(
+                                                  context, model, false),
+                                            ],
+                                          ),
+                                        ])),
                                   ),
                                 ],
                               ),
@@ -247,6 +242,36 @@ class HomeView extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Widget _busRouteView(context, HomeViewModel model, bool isDepartute) {
+    return Padding(
+        padding: EdgeInsets.fromLTRB(15, 5, 10, 0),
+        child: Row(children: [
+          Container(
+            padding: EdgeInsets.all(3.5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Colors.blue, width: 2),
+            ),
+            child: Text(
+              isDepartute ? "乗車" : "降車",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: Text(
+                isDepartute ? model.origin : model.destination,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 16),
+              )),
+        ]));
   }
 }
 
