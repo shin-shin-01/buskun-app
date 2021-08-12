@@ -10,11 +10,16 @@ class FirestoreService {
   // [ Timetabel, Timetable, ... ]
   Future<List<Timetable>> getTargetTimetables(
       String departuteDocid, String destinationDocid, String timeString) async {
+    // 2時間後までのデータを取得
+    String hour = timeString.substring(0, 2);
+    String nextHour = (int.parse(hour) + 2).toString().padLeft(2, "0");
+    String nextTimeString = nextHour + timeString.substring(2);
+
     return await buses
         .doc(departuteDocid)
         .collection(destinationDocid)
         .where('departureAt', isGreaterThanOrEqualTo: timeString)
-        .limit(15)
+        .where('departureAt', isLessThan: nextTimeString)
         .get()
         .then((QuerySnapshot querySnapshot) => querySnapshot.docs
             .map((doc) => Timetable.fromFirestore(doc))
