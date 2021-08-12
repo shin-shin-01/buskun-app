@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:trainkun/service/navigation.dart';
 import '../../services_locator.dart';
 import '../home/home_viewmodel.dart';
@@ -12,8 +11,6 @@ class FavoriteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _navigation = servicesLocator<NavigationService>();
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -38,24 +35,8 @@ class FavoriteWidget extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       itemCount: model.busPairs.length,
                       itemBuilder: (_, i) {
-                        return Slidable(
-                          actionPane: SlidableDrawerActionPane(),
-                          actionExtentRatio: 0.25,
-                          child: BusPairCard(
-                              model: model, busPair: model.busPairs[i]),
-                          secondaryActions: <Widget>[
-                            IconSlideAction(
-                              caption: 'Delete',
-                              color: Colors.red,
-                              icon: Icons.delete,
-                              onTap: () {
-                                model.deleteFavoriteBusPair(model.busPairs[i]);
-                                // TODO: fix - now, pop when delete BusPair cuz BusPairCard not removed
-                                _navigation.pop();
-                              },
-                            ),
-                          ],
-                        );
+                        return BusPairCard(
+                            model: model, busPair: model.busPairs[i]);
                       },
                     ),
                   ),
@@ -105,7 +86,7 @@ class BusPairCard extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Text(
-                      busPair.origin,
+                      busPair.first,
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   )
@@ -125,7 +106,7 @@ class BusPairCard extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Text(
-                      busPair.destination,
+                      busPair.second,
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   )

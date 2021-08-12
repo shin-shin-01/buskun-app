@@ -101,7 +101,6 @@ class HomeView extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  height: 100,
                   decoration: BoxDecoration(
                     color: Theme.of(context).backgroundColor,
                   ),
@@ -127,25 +126,6 @@ class HomeView extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Stack(
                       children: [
-                        Positioned(
-                          top: 15.0,
-                          right: 20.0,
-                          child: model.notRegisteredBusPair()
-                              ? IconButton(
-                                  onPressed: () =>
-                                      {model.postFavoriteBusPair()},
-                                  icon: Icon(
-                                    Icons.add_location_alt_outlined,
-                                    color: Theme.of(context).accentColor,
-                                    size: 30,
-                                  ),
-                                )
-                              : Icon(
-                                  Icons.location_on,
-                                  color: Theme.of(context).accentColor,
-                                  size: 30,
-                                ),
-                        ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -190,69 +170,27 @@ class HomeView extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.5,
-                                      height: 30,
-                                      child: DropdownButton(
-                                        value: model.dropDownValueOrigin,
-                                        items: model.dropDownItemsOrigins
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                        onChanged: (value) {
-                                          model.setDropDownValueOrigin(
-                                              value.toString());
-                                        },
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                        underline: SizedBox(),
-                                        icon: Icon(
-                                          Icons.where_to_vote,
-                                          color: Theme.of(context).accentColor,
-                                          size: 15,
-                                        ),
-                                        dropdownColor:
-                                            Theme.of(context).primaryColor,
-                                        elevation: 2,
-                                      ),
-                                    ),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        height: 30,
+                                        child: Text(
+                                          model.origin,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        )),
                                     Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.5,
-                                      height: 30,
-                                      child: DropdownButton(
-                                        value: model.dropDownValueDestination,
-                                        items: model.dropDownItemsDestinations
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                        onChanged: (value) {
-                                          model.setDropDownValueDestination(
-                                              value.toString());
-                                        },
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                        underline: SizedBox(),
-                                        icon: FaIcon(
-                                            FontAwesomeIcons.fontAwesomeFlag,
-                                            color:
-                                                Theme.of(context).accentColor,
-                                            size: 15),
-                                        dropdownColor:
-                                            Theme.of(context).primaryColor,
-                                        elevation: 2,
-                                      ),
-                                    )
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        height: 30,
+                                        child: Text(
+                                          model.destination,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        )),
                                   ],
                                 ),
                               ),
@@ -277,8 +215,8 @@ class TimetableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+    return Container(
+      height: 70,
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         color: Theme.of(context).accentColor,
@@ -289,46 +227,11 @@ class TimetableCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('行先 : ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(fontSize: 13)),
-                        Text(
-                          timetable.destination,
-                          style: Theme.of(context).textTheme.bodyText2,
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text('経由 : ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(fontSize: 13)),
-                      Text(
-                        timetable.via,
-                        style: Theme.of(context).textTheme.bodyText2,
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Text(
+                  timetable.line,
+                  style: Theme.of(context).textTheme.bodyText2,
+                )),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child: Column(
