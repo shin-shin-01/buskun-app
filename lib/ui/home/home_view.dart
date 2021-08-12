@@ -140,13 +140,9 @@ class HomeView extends StatelessWidget {
                                                 .textTheme
                                                 .bodyText1),
                                         InkWell(
-                                          // onTap: () async {
-                                          //   await DatePicker.showDatePicker(context,
-                                          //       showTitleActions: true,
-                                          //       onConfirm: (date) {
-                                          //     setState(() => datePicked = date);
-                                          //   }, currentTime: DateTime.now());
-                                          // },
+                                          onTap: () async {
+                                            await model.selectTime(context);
+                                          },
                                           child: Text(model.timeString,
                                               textAlign: TextAlign.start,
                                               style: Theme.of(context)

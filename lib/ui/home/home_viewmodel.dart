@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import '../../service/firestore_service.dart';
@@ -37,6 +38,22 @@ class HomeViewModel extends BaseViewModel {
 
     final now = DateTime.now();
     timeString = DateFormat('HH:mm').format(now);
+  }
+
+  Future<void> selectTime(BuildContext context) async {
+    final TimeOfDay? t = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (t != null) {
+      // 時刻を hh:mm でフォーマット
+      timeString = t.hour.toString().padLeft(2, "0") +
+          ":" +
+          t.minute.toString().padLeft(2, "0");
+      // 時刻表を更新
+      await setTimetables();
+      notifyListeners();
+    }
   }
 
   Future<void> setBusPairs() async {
