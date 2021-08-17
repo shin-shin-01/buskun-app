@@ -84,17 +84,16 @@ class HomeViewModel extends BaseViewModel {
 
   // バス停を選択
   Future<void> setBusPairFromFavorite(BusPair busPair) async {
-    origin = busPair.first;
-    destination = busPair.second;
+    origin = isReverse ? busPair.second : busPair.first;
+    destination = isReverse ? busPair.first : busPair.second;
     // 時刻表を登録
     await setTimetables();
     notifyListeners();
   }
 
   // 出発/到着を変更
-  void reverseBusPair() {
+  Future<void> reverseBusPair() async {
     isReverse = !isReverse;
-    notifyListeners();
   }
 
   // 時刻を現在時刻に変更 / 時刻表を更新

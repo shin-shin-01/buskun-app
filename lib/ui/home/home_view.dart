@@ -228,9 +228,7 @@ class HomeView extends StatelessWidget {
           Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child: Text(
-                (isDepartute ^ model.isReverse)
-                    ? model.origin
-                    : model.destination,
+                isDepartute ? model.origin : model.destination,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
