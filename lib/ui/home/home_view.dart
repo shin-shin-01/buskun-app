@@ -256,8 +256,8 @@ class TimetableCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
             ),
             child: new InkWell(
-                onLongPress: () => Share.share(timetable.toShareSentence(
-                    model.origin, model.destination, model.isReverse)),
+                onLongPress: () => Share.share(
+                    timetable.toShareSentence(model.origin, model.destination)),
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                   child: Row(
