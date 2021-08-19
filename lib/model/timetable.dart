@@ -24,13 +24,7 @@ class Timetable {
     );
   }
 
-  String toShareSentence(String departure, String arrive, bool isReverse) {
-    if (isReverse) {
-      final tmp = departure;
-      departure = arrive;
-      arrive = tmp;
-    }
-
+  String toShareSentence(String departure, String arrive) {
     return """$line
 
     $departure
