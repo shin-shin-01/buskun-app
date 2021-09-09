@@ -69,6 +69,21 @@ def save_to_firebase_bus_pair(data: Dict[str, str], bus_pair_key: str) -> None:
     doc_ref = db.collection("bus_pairs").document(str(bus_pair_key))
     doc_ref.set({"first": data["name_1"], "second": data["name_2"]})
 
+"""
+Firebase に登録されているバス停の組み合わせを取得
+return [["九大", "産学連携"], ["九大", "理学部"], ..., ]
+"""
+def get_bus_pair_from_firebase() -> List[List[str]]:
+    registerd_bus_pairs = []
+    docs = db.collection("bus_pairs").stream()
+    for doc in docs:
+        data = doc.to_dict()
+        registerd_bus_pairs.append([data["first"], data["second"]])
+
+    return registerd_bus_pairs
+
+def is_already_registerd_pair(registerd_bus_pairs: List[List[str]], data: Dict[str, str]):
+    return [data["name_1"], data["name_2"]] in registerd_bus_pairs
 
 """
 時刻表クラス
@@ -98,10 +113,16 @@ if __name__ == "__main__":
     json_open = open('bus-data.json', 'r')
     bus_data = json.load(json_open)
 
+    # 既に登録されているバス停の組み合わせ
+    registerd_bus_pairs = get_bus_pair_from_firebase()
+
     # google.api_core.exceptions.InvalidArgument: 400 maximum 500 writes allowed per request
     # 上記仕様のため, 定期的にFirebaseに反映
     
     for bus_pair_key, bus_pairs in bus_data["bus_pairs"].items(): # バス停組み合わせ一覧
+        # 既に登録されている場合にスキップする
+        if is_already_registerd_pair(registerd_bus_pairs, bus_pairs): continue
+
         for line_key, lines in bus_data["lines"].items(): # バス路線一覧
             for holiday_key, holiday in bus_data["holiday"].items(): # 休日 or 平日
 
