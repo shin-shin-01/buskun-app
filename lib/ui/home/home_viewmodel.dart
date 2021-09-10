@@ -42,8 +42,8 @@ class HomeViewModel extends BaseViewModel {
   // 現在時刻 / 平日・土日 を設定
   setTime() async {
     // api: http://s-proj.com/utils/holiday.html
-    final response =
-        await http.get("http://s-proj.com/utils/checkHoliday.php?kind=h");
+    Uri uri = Uri.parse("http://s-proj.com/utils/checkHoliday.php?kind=h");
+    final response = await http.get(uri);
     isHoliday = response.body == "holiday";
 
     final now = DateTime.now();
