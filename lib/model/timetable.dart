@@ -15,7 +15,7 @@ class Timetable {
       required this.arriveAt});
 
   factory Timetable.fromFirestore(QueryDocumentSnapshot firestoreDoc) {
-    final data = firestoreDoc.data();
+    final data = firestoreDoc.data() as Map;
     return Timetable(
       isHoliday: data["holiday"] as bool,
       line: data['line'] as String,

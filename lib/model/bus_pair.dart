@@ -12,7 +12,7 @@ class BusPair {
   });
 
   factory BusPair.fromFirestore(QueryDocumentSnapshot firestoreDoc) {
-    final data = firestoreDoc.data();
+    final data = firestoreDoc.data() as Map;
     return BusPair(
       id: firestoreDoc.id,
       first: data['first'] as String,
