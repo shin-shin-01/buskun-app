@@ -9,6 +9,7 @@ import './home_viewmodel.dart';
 
 ///
 class HomeView extends StatelessWidget {
+  static const routeName = '/home';
   DateTime datePicked = DateTime.now();
 
   @override
