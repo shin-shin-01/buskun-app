@@ -14,7 +14,7 @@ class StartUpViewModel extends BaseViewModel {
 
   Future handleStartUpLogic() async {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (_auth.uid != null) {
+      if (_auth.userProfile["uid"] != null) {
         _navigation.pushNamed(routeName: HomeView.routeName);
       } else {
         _navigation.pushNamed(routeName: LoginView.routeName);
