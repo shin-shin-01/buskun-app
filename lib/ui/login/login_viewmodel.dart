@@ -12,7 +12,6 @@ class LoginViewModel extends BaseViewModel {
   /// submitSignInForm
   void signInWithGoogle() async {
     setBusy(true);
-    notifyListeners();
     await _auth.signInWithGoogle();
 
     _navigation.pushNamed(routeName: HomeView.routeName);
