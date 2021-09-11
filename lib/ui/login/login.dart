@@ -104,27 +104,16 @@ class LoginView extends StatelessWidget {
                                       ),
                                       Align(
                                         alignment: Alignment(-0.83, 0),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomeView(),
-                                              ),
-                                            );
-                                          },
-                                          child: Container(
-                                            width: 22,
-                                            height: 22,
-                                            clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Image.network(
-                                              'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
-                                              fit: BoxFit.contain,
-                                            ),
+                                        child: Container(
+                                          width: 22,
+                                          height: 22,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
+                                            fit: BoxFit.contain,
                                           ),
                                         ),
                                       )
