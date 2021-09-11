@@ -19,4 +19,6 @@ class BusPair {
       second: data['second'] as String,
     );
   }
+
+  Map<String, String> toDict() => {"first": first, "second": second};
 }
