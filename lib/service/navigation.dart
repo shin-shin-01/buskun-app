@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../ui/home/home_view.dart';
 import '../ui/login/login.dart';
+import '../ui/start_up/start_up_view.dart';
 
 class NavigationService {
   /// Navigator を指定するキー
@@ -31,7 +33,7 @@ class NavigationService {
       case LoginView.routeName:
         return MaterialPageRoute(builder: (_) => LoginView());
       default:
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(builder: (_) => StartUpView());
     }
   }
 }

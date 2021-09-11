@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'services_locator.dart';
 import './service/navigation.dart';
-import './ui/login/login.dart';
+import 'ui/start_up/start_up_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +43,6 @@ class MyApp extends StatelessWidget {
         theme: appTheme,
         navigatorKey: _navigation.navigatorKey,
         onGenerateRoute: NavigationService.generateRoute,
-        home: LoginView());
+        initialRoute: StartUpView.routeName);
   }
 }
