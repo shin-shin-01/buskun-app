@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../services_locator.dart';
@@ -12,10 +13,12 @@ class StartUpViewModel extends BaseViewModel {
   final _auth = servicesLocator<AuthService>();
 
   Future handleStartUpLogic() async {
-    if (_auth.uid != null) {
-      _navigation.pushNamed(routeName: HomeView.routeName);
-    } else {
-      _navigation.pushNamed(routeName: LoginView.routeName);
-    }
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (_auth.uid != null) {
+        _navigation.pushNamed(routeName: HomeView.routeName);
+      } else {
+        _navigation.pushNamed(routeName: LoginView.routeName);
+      }
+    });
   }
 }
