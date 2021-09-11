@@ -21,23 +21,20 @@ class HomeView extends StatelessWidget {
           ? Loading()
           : Scaffold(
               backgroundColor: Theme.of(context).primaryColor,
+              appBar: AppBar(
+                iconTheme: IconThemeData(color: Colors.white),
+                title: Text('ばすくん',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontSize: 25)),
+              ),
+              drawer: _drawer(context, model),
               body: SafeArea(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      child: Text('ばすくん',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(fontSize: 25)),
-                    ),
                     // 時刻表メイン
                     // - タブ / 時刻表
                     Expanded(child: _timeTableView(context, model)),
@@ -122,6 +119,29 @@ class HomeView extends StatelessWidget {
               ),
             ),
     );
+  }
+
+  /// ドロワーメニュー
+  Widget _drawer(context, HomeViewModel model) {
+    return Drawer(
+        child: ListView(children: <Widget>[
+      Container(
+        height: 70.0,
+        child: DrawerHeader(
+          child: Text('ばすくん'),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+      ),
+      ListTile(
+        title: InkWell(
+          onTap: () async => await model.signOut(),
+          child: Text("ログアウト", style: Theme.of(context).textTheme.bodyText2),
+        ),
+        trailing: Icon(Icons.logout),
+      ),
+    ]));
   }
 
   // バス停撰択 Dialog
