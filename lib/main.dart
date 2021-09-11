@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:trainkun/service/navigation.dart';
 
 import 'services_locator.dart';
+import './service/navigation.dart';
 import './ui/login/login.dart';
-import './ui/home/home_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +42,7 @@ class MyApp extends StatelessWidget {
         title: 'Trainkun',
         theme: appTheme,
         navigatorKey: _navigation.navigatorKey,
-        // home: LoginWidget(),
-        home: HomeView());
+        onGenerateRoute: NavigationService.generateRoute,
+        home: LoginView());
   }
 }
