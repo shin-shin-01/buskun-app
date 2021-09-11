@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:trainkun/service/navigation.dart';
+import 'package:trainkun/ui/home/home_view.dart';
 import '../../services_locator.dart';
 import '../home/home_viewmodel.dart';
 import '../../model/bus_pair.dart';
 
-class FavoriteWidget extends StatelessWidget {
+// 全てのバス停からお気に入りのバス停を選択
+class SelectFavoriteWidget extends StatelessWidget {
   final HomeViewModel model;
-  const FavoriteWidget({Key? key, required this.model}) : super(key: key);
+  const SelectFavoriteWidget({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,9 @@ class FavoriteWidget extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           child: ListView.builder(
-            itemCount: model.favoriteBusPairs.length,
+            itemCount: model.busPairs.length,
             itemBuilder: (_, i) {
-              return BusPairCard(
-                  model: model, busPair: model.favoriteBusPairs[i]);
+              return BusPairCard(model: model, busPair: model.busPairs[i]);
             },
           ),
         ));
@@ -39,16 +40,20 @@ class BusPairCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _navigation = servicesLocator<NavigationService>();
+    final isFavorite = model.isFavoriteBusPair(busPair);
 
     return Container(
       height: 70,
       child: Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: Theme.of(context).accentColor,
+          color: isFavorite ? Colors.blue : Theme.of(context).accentColor,
           child: new InkWell(
             onTap: () {
-              model.setBusPairFromFavorite(busPair);
-              _navigation.pop();
+              isFavorite
+                  ? model.removeBusPairFavorite(busPair)
+                  : model.setBusPairFavorite(busPair);
+              // TODO: 処理を変更
+              _navigation.pushNamed(routeName: HomeView.routeName);
             },
             child: Padding(
                 padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
@@ -56,27 +61,31 @@ class BusPairCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _busRouteView(context, model, true),
-                    _busRouteView(context, model, false),
+                    _busRouteView(context, model, true, isFavorite),
+                    _busRouteView(context, model, false, isFavorite),
                   ],
                 )),
           )),
     );
   }
 
-  Widget _busRouteView(context, HomeViewModel model, bool isDepartute) {
+  Widget _busRouteView(
+      context, HomeViewModel model, bool isDepartute, bool isFavorite) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(isDepartute ? "乗車: " : "降車: ",
-            style: Theme.of(context).textTheme.bodyText2),
+            style: isFavorite
+                ? Theme.of(context).textTheme.bodyText1
+                : Theme.of(context).textTheme.bodyText2),
         Padding(
           padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
           child: Text(
-            (isDepartute ^ model.isReverse) ? busPair.first : busPair.second,
-            style: Theme.of(context).textTheme.bodyText2,
-          ),
+              (isDepartute ^ model.isReverse) ? busPair.first : busPair.second,
+              style: isFavorite
+                  ? Theme.of(context).textTheme.bodyText1
+                  : Theme.of(context).textTheme.bodyText2),
         )
       ],
     );
