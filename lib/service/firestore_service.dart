@@ -6,6 +6,7 @@ class FirestoreService {
   CollectionReference buses = FirebaseFirestore.instance.collection('buses');
   CollectionReference bus_pairs =
       FirebaseFirestore.instance.collection('bus_pairs');
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   // [ Timetabel, Timetable, ... ]
   Future<List<Timetable>> getTargetTimetables(
@@ -30,5 +31,27 @@ class FirestoreService {
   Future<List<BusPair>> getBusPairs() async {
     return await bus_pairs.get().then((QuerySnapshot querySnapshot) =>
         querySnapshot.docs.map((doc) => BusPair.fromFirestore(doc)).toList());
+  }
+
+  // ユーザーごとのバス停組み合わせ一覧を取得
+  Future<List<BusPair>> getUserBusPairs(String uid) async {
+    return await users.doc(uid).collection("bus_pairs").get().then(
+        (QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map((doc) => BusPair.fromFirestore(doc))
+            .toList());
+  }
+
+  // ユーザーごとのバス停組み合わせを作成
+  Future<void> setUserBusPair(String uid, BusPair busPair) async {
+    await users
+        .doc(uid)
+        .collection("bus_pairs")
+        .doc(busPair.id)
+        .set(busPair.toDict());
+  }
+
+  // ユーザーごとのバス停組み合わせを削除
+  Future<void> removeUserBusPair(String uid, BusPair busPair) async {
+    await users.doc(uid).collection("bus_pairs").doc(busPair.id).delete();
   }
 }
