@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:share/share.dart';
+import '../../service/authentication.dart';
+import '../../services_locator.dart';
 import '../../shared/loading.dart';
-// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import '../../ui/favorite/select_favorite.dart';
 import '../favorite/favorite.dart';
 import '../../model/timetable.dart';
 import './home_viewmodel.dart';
@@ -22,14 +24,23 @@ class HomeView extends StatelessWidget {
           : Scaffold(
               backgroundColor: Theme.of(context).primaryColor,
               appBar: AppBar(
-                iconTheme: IconThemeData(color: Colors.white),
-                title: Text('ばすくん',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 25)),
-              ),
+                  iconTheme: IconThemeData(color: Colors.white),
+                  title: Text('ばすくん',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 25)),
+                  actions: <Widget>[
+                    IconButton(
+                      onPressed: () async {
+                        // お気に入りバス停撰択 Dialog
+                        await model.setBusPairs();
+                        await _showSelectFavoriteDialog(context, model);
+                      },
+                      icon: Icon(Icons.favorite),
+                    )
+                  ]),
               drawer: _drawer(context, model),
               body: SafeArea(
                 child: Column(
@@ -92,7 +103,8 @@ class HomeView extends StatelessWidget {
                                         child: GestureDetector(
                                           onTap: () async {
                                             // バス停撰択 Dialog
-                                            await _showDialog(context, model);
+                                            await _showFavoriteDialog(
+                                                context, model);
                                           },
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -123,6 +135,8 @@ class HomeView extends StatelessWidget {
 
   /// ドロワーメニュー
   Widget _drawer(context, HomeViewModel model) {
+    final _auth = servicesLocator<AuthService>();
+
     return Drawer(
         child: ListView(children: <Widget>[
       Container(
@@ -135,17 +149,56 @@ class HomeView extends StatelessWidget {
         ),
       ),
       ListTile(
+        title: Text(_auth.userProfile["displayName"]!,
+            style: Theme.of(context).textTheme.bodyText2),
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(_auth.userProfile["photoURL"]!),
+          backgroundColor: Colors.transparent, // 背景色
+          radius: 16, // 表示したいサイズの半径を指定
+        ),
+      ),
+      ListTile(
         title: InkWell(
           onTap: () async => await model.signOut(),
           child: Text("ログアウト", style: Theme.of(context).textTheme.bodyText2),
         ),
-        trailing: Icon(Icons.logout),
+        leading: Icon(Icons.logout),
       ),
     ]));
   }
 
+  // お気に入りバス停撰択 Dialog
+  Future<void> _showSelectFavoriteDialog(context, HomeViewModel model) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Row(children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                child: Icon(Icons.directions_bus,
+                    color: Theme.of(context).accentColor),
+              ),
+              Expanded(
+                  child: Text("バス停一覧",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 17))),
+            ]),
+            children: [
+              SizedBox(
+                  child: SelectFavoriteWidget(model: model),
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  width: MediaQuery.of(context).size.width * 0.9),
+            ],
+            backgroundColor: Theme.of(context).primaryColor,
+          );
+        });
+  }
+
   // バス停撰択 Dialog
-  Future<void> _showDialog(context, HomeViewModel model) {
+  Future<void> _showFavoriteDialog(context, HomeViewModel model) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -159,7 +212,7 @@ class HomeView extends StatelessWidget {
                       color: Theme.of(context).accentColor),
                 ),
                 Expanded(
-                    child: Text("バス停一覧",
+                    child: Text("お気に入りバス停",
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1!

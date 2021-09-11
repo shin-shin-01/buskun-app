@@ -27,18 +27,22 @@ class HomeViewModel extends BaseViewModel {
   // バスを乗車降車を逆にするか？
   late bool isReverse = false;
 
-  late String origin;
-  late String destination;
+  String origin = "九大学研都市駅";
+  String destination = "九大ビッグオレンジ";
   late String timeString;
   late bool isHoliday;
   late Map<String, List<Timetable>> timetables = {"平日": [], "土・日": []};
-  late List<BusPair> busPairs;
+  // ユーザーごとのバス停
+  late List<BusPair> favoriteBusPairs;
+  List<String> favoriteBusPairIds = [];
+  // すべてのバス停
+  List<BusPair> busPairs = [];
 
   void initialize() async {
     setBusy(true);
 
     await setTime();
-    await setBusPairs();
+    await setFavoriteBusPairs();
     await setTimetables();
 
     setBusy(false);
@@ -77,11 +81,16 @@ class HomeViewModel extends BaseViewModel {
   // =============================
   // バス停/時刻表を変数に保存
   // =============================
-  Future<void> setBusPairs() async {
-    busPairs = await _firestore.getBusPairs();
+  Future<void> setFavoriteBusPairs() async {
+    favoriteBusPairs =
+        await _firestore.getUserBusPairs(_auth.userProfile["uid"]!);
+    favoriteBusPairs.forEach((busPair) => favoriteBusPairIds.add(busPair.id));
+
     // 初期値を登録
-    origin = busPairs.first.first;
-    destination = busPairs.first.second;
+    if (favoriteBusPairs.length != 0) {
+      origin = favoriteBusPairs.first.first;
+      destination = favoriteBusPairs.first.second;
+    }
   }
 
   Future<void> setTimetables() async {
@@ -107,6 +116,34 @@ class HomeViewModel extends BaseViewModel {
   // 出発/到着を変更
   Future<void> reverseBusPair() async {
     isReverse = !isReverse;
+  }
+
+  // =============================
+  // お気に入りのバス停を登録
+  // =============================
+  // すべてのバス停データを取得
+  Future<void> setBusPairs() async {
+    if (busPairs.length == 0) {
+      busPairs = await _firestore.getBusPairs();
+    }
+  }
+
+  bool isFavoriteBusPair(BusPair busPair) {
+    return favoriteBusPairIds.contains(busPair.id);
+  }
+
+  Future<void> setBusPairFavorite(BusPair busPair) async {
+    await _firestore.setUserBusPair(_auth.userProfile["uid"]!, busPair);
+    favoriteBusPairs.add(busPair);
+    favoriteBusPairIds.add(busPair.id);
+    notifyListeners();
+  }
+
+  Future<void> removeBusPairFavorite(BusPair busPair) async {
+    await _firestore.removeUserBusPair(_auth.userProfile["uid"]!, busPair);
+    favoriteBusPairs.remove(busPair);
+    favoriteBusPairIds.remove(busPair.id);
+    notifyListeners();
   }
 
   // =============================
