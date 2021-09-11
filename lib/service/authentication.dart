@@ -21,7 +21,11 @@ class AuthService {
   Stream<User?> get user => _firebaseAuth.userChanges();
 
   /// user's uid
-  String? get uid => _firebaseAuth.currentUser?.uid;
+  Map<String, String?> get userProfile => {
+        "uid": _firebaseAuth.currentUser?.uid,
+        "displayName": _firebaseAuth.currentUser?.displayName,
+        "photoURL": _firebaseAuth.currentUser?.photoURL,
+      };
 
   /// sign in to Firebase Authentication Service with Google
   Future<User?> signInWithGoogle() async {
