@@ -45,7 +45,9 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  // 現在時刻 / 平日・土日 を設定
+  // =============================
+  // 現在時刻 / 平日・土日
+  // =============================
   setTime() async {
     // api: http://s-proj.com/utils/holiday.html
     Uri uri = Uri.parse("http://s-proj.com/utils/checkHoliday.php?kind=h");
@@ -72,6 +74,9 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
+  // =============================
+  // バス停/時刻表を変数に保存
+  // =============================
   Future<void> setBusPairs() async {
     busPairs = await _firestore.getBusPairs();
     // 初期値を登録
@@ -88,7 +93,9 @@ class HomeViewModel extends BaseViewModel {
         allTimetables.where((timetable) => timetable.isHoliday).toList();
   }
 
+  // =============================
   // バス停を選択
+  // =============================
   Future<void> setBusPairFromFavorite(BusPair busPair) async {
     origin = isReverse ? busPair.second : busPair.first;
     destination = isReverse ? busPair.first : busPair.second;
@@ -102,13 +109,18 @@ class HomeViewModel extends BaseViewModel {
     isReverse = !isReverse;
   }
 
+  // =============================
   // 時刻を現在時刻に変更 / 時刻表を更新
+  // =============================
   Future<void> onRefresh() async {
     await setTime();
     await setTimetables();
     notifyListeners();
   }
 
+  // =============================
+  // サインアウト
+  // =============================
   Future<void> signOut() async {
     await _auth.signOut();
     _navigation.pushNamed(routeName: LoginView.routeName);
