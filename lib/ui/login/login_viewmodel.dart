@@ -9,14 +9,6 @@ class LoginViewModel extends BaseViewModel {
   final _navigation = servicesLocator<NavigationService>();
   final _auth = servicesLocator<AuthService>();
 
-  void initialize() async {
-    setBusy(true);
-    if (_auth.uid != null) {
-      _navigation.pushNamed(routeName: HomeView.routeName);
-    }
-    setBusy(false);
-  }
-
   /// submitSignInForm
   void signInWithGoogle() async {
     setBusy(true);

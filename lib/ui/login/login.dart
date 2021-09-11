@@ -14,7 +14,6 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
         viewModelBuilder: () => LoginViewModel(),
-        onModelReady: (model) => model.initialize(),
         builder: (context, model, child) => model.isBusy
             ? Loading()
             : Scaffold(
