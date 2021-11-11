@@ -70,6 +70,29 @@ def save_to_firebase_bus_pair(data: Dict[str, str], bus_pair_key: str) -> None:
     doc_ref.set({"first": data["name_1"], "second": data["name_2"]})
 
 """
+Firebase からデータを削除（時刻表更新時に実行）
+"""
+def delete_timetable_in_firebase() -> None:
+    print("> delete_timetable_in_firebase")
+    bus_pairs_docs = db.collection(u'bus_pairs').stream()
+    for doc in bus_pairs_docs:
+        data = doc.to_dict()
+
+        # 一度にデータを削除できないため，先にすべてのコレクションを削除
+        buses_docs = db.collection("buses").document(data["first"]).collection(data["second"]).stream()
+        print(">>> delete:" + data["first"] + "-" + data["second"])
+        for bus_doc in buses_docs:
+            bus_doc.reference.delete()
+        buses_docs = db.collection("buses").document(data["second"]).collection(data["first"]).stream()
+        print(">>> delete:" + data["second"] + "-" + data["first"])
+        for bus_doc in buses_docs:
+            bus_doc.reference.delete()
+
+        # バスの組み合わせを削除
+        print(f">> delete: bus_pair:{doc.id}")
+        doc.reference.delete()
+
+"""
 Firebase に登録されているバス停の組み合わせを取得
 return [["九大", "産学連携"], ["九大", "理学部"], ..., ]
 """
@@ -110,6 +133,11 @@ class Timetable:
 - Firebase に保存
 """
 if __name__ == "__main__":
+    import sys
+    # データをリセット（時刻表更新時に実行）
+    if ((len(sys.argv) >= 2) and (sys.argv[1] == 'reset')):
+        delete_timetable_in_firebase()
+
     json_open = open('bus-data.json', 'r')
     bus_data = json.load(json_open)
 
