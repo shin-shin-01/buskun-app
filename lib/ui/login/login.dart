@@ -42,7 +42,7 @@ class LoginView extends StatelessWidget {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 0, 20, 8),
+                          padding: EdgeInsets.fromLTRB(30, 20, 20, 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -58,7 +58,7 @@ class LoginView extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 0, 20, 8),
+                          padding: EdgeInsets.fromLTRB(23, 0, 20, 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
