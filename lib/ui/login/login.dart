@@ -1,9 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:trainkun/shared/loading.dart';
 
-import '../home/home_view.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'login_viewmodel.dart';
 
@@ -12,6 +10,8 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return ViewModelBuilder<LoginViewModel>.reactive(
         viewModelBuilder: () => LoginViewModel(),
         builder: (context, model, child) => model.isBusy
@@ -34,9 +34,8 @@ class LoginView extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                               child: Image.asset(
-                                'assets/images/busstop.png',
-                                width: 350,
-                                height: 400,
+                                'assets/images/top-icon.png',
+                                width: size.width * 0.6,
                                 fit: BoxFit.fitWidth,
                               ),
                             )
