@@ -30,8 +30,9 @@ class AuthService {
   /// sign in to Firebase Authentication Service with Google
   Future<User?> signInWithGoogle() async {
     print("===== signInWithGoogle =====");
-    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    // TODO: error handling when google signin failed
+    GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
