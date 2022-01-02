@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 import 'package:trainkun/service/navigation.dart';
 import '../../services_locator.dart';
 import '../home/home_viewmodel.dart';
 import '../../model/bus_pair.dart';
 
-class FavoriteWidget extends StatelessWidget {
-  final HomeViewModel model;
-  const FavoriteWidget({Key? key, required this.model}) : super(key: key);
+class FavoriteWidget extends ViewModelWidget<HomeViewModel> {
+  const FavoriteWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return Padding(
         padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
         child: Container(
-          width: double.infinity,
-          height: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
           ),
           child: ListView.builder(
-            itemCount: model.favoriteBusPairs.length,
+            itemCount: viewModel.favoriteBusPairs.length,
             itemBuilder: (_, i) {
               return BusPairCard(
-                  model: model, busPair: model.favoriteBusPairs[i]);
+                model: viewModel,
+                busPair: viewModel.favoriteBusPairs[i],
+              );
             },
           ),
         ));
