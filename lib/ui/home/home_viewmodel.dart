@@ -154,12 +154,4 @@ class HomeViewModel extends BaseViewModel {
     await setTimetables();
     notifyListeners();
   }
-
-  // =============================
-  // サインアウト
-  // =============================
-  Future<void> signOut() async {
-    await _auth.signOut();
-    _navigation.pushNamed(routeName: LoginView.routeName);
-  }
 }
