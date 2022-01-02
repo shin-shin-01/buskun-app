@@ -3,9 +3,13 @@ import 'package:stacked/stacked.dart';
 import 'package:trainkun/ui/favorite/select_favorite.dart';
 import 'package:trainkun/ui/home/home_viewmodel.dart';
 
-class HomeAppBar extends ViewModelWidget<HomeViewModel> {
+class HomeAppBar extends ViewModelWidget<HomeViewModel>
+    implements PreferredSizeWidget {
   @override
-  PreferredSizeWidget build(BuildContext context, HomeViewModel viewModel) {
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return AppBar(
       iconTheme: IconThemeData(color: Colors.white),
       title: Text('ばすくん',
