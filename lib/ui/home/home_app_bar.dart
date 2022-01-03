@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:trainkun/ui/favorite/select_favorite.dart';
 import 'package:trainkun/ui/home/home_viewmodel.dart';
+import 'package:trainkun/ui/theme/app_text_theme.dart';
+import 'package:trainkun/ui/theme/app_theme.dart';
 
 class HomeAppBar extends ViewModelWidget<HomeViewModel>
     implements PreferredSizeWidget {
@@ -11,10 +13,13 @@ class HomeAppBar extends ViewModelWidget<HomeViewModel>
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return AppBar(
+      backgroundColor: appTheme.appColors.primary,
       iconTheme: IconThemeData(color: Colors.white),
-      title: Text('ばすくん',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 25)),
+      title: Text(
+        'ばすくん',
+        textAlign: TextAlign.center,
+        style: appTheme.textTheme.h60,
+      ),
       actions: <Widget>[
         IconButton(
           onPressed: () async {
@@ -30,6 +35,8 @@ class HomeAppBar extends ViewModelWidget<HomeViewModel>
 
   // お気に入りバス停撰択 Dialog
   Future<void> _showFavoriteDialog(context, HomeViewModel model) {
+    final Size size = MediaQuery.of(context).size;
+
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -37,23 +44,26 @@ class HomeAppBar extends ViewModelWidget<HomeViewModel>
             title: Row(children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Icon(Icons.directions_bus,
-                    color: Theme.of(context).accentColor),
+                child: Icon(
+                  Icons.directions_bus,
+                  color: appTheme.appColors.accent,
+                ),
               ),
               Expanded(
-                  child: Text("バス停一覧",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 17))),
+                child: Text(
+                  "バス停一覧",
+                  style: appTheme.textTheme.h40.accent(),
+                ),
+              ),
             ]),
             children: [
               SizedBox(
-                  child: SelectFavoriteWidget(model: model),
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  width: MediaQuery.of(context).size.width * 0.9),
+                child: SelectFavoriteWidget(model: model),
+                height: size.height * 0.6,
+                width: size.width * 0.9,
+              ),
             ],
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: appTheme.appColors.primary,
           );
         });
   }

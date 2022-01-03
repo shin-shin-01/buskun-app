@@ -2,34 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:trainkun/ui/favorite/favorite.dart';
 import 'package:trainkun/ui/home/home_viewmodel.dart';
+import 'package:trainkun/ui/theme/app_text_theme.dart';
+import 'package:trainkun/ui/theme/app_theme.dart';
 
 // 画面下部 バス停・時刻を選択する Widget
 class BottomMenuView extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Container(
-      height: 120,
-      color: Theme.of(context).primaryColor,
+      height: 130,
+      color: appTheme.appColors.primary,
       child: Padding(
-          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+          padding: EdgeInsets.only(left: 10, top: 10),
           child: Stack(
             children: [
               Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    padding: EdgeInsets.only(left: 10),
                     child: Column(
                       children: [
-                        Text('出発時刻',
-                            style: Theme.of(context).textTheme.bodyText1),
+                        Text(
+                          '出発時刻',
+                          style: appTheme.textTheme.h40.accent(),
+                        ),
                         InkWell(
                           onTap: () async =>
                               await viewModel.selectTime(context),
-                          child: Text(viewModel.timeString,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontSize: 38)),
+                          child: Text(
+                            viewModel.timeString,
+                            style: appTheme.textTheme.h80.accent(),
+                          ),
                         )
                       ],
                     ),
@@ -58,6 +61,8 @@ class BottomMenuView extends ViewModelWidget<HomeViewModel> {
 
   // バス停撰択 Dialog
   Future<void> _showSelectBusDialog(context, HomeViewModel model) {
+    final Size size = MediaQuery.of(context).size;
+
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -67,15 +72,16 @@ class BottomMenuView extends ViewModelWidget<HomeViewModel> {
             title: Row(children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Icon(Icons.directions_bus,
-                    color: Theme.of(context).accentColor),
+                child: Icon(
+                  Icons.directions_bus,
+                  color: appTheme.appColors.accent,
+                ),
               ),
               Expanded(
-                  child: Text("お気に入りバス停",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 17))),
+                  child: Text(
+                "お気に入りバス停",
+                style: appTheme.textTheme.h40.accent(),
+              )),
               IconButton(
                   onPressed: () {
                     setState(() {
@@ -86,11 +92,11 @@ class BottomMenuView extends ViewModelWidget<HomeViewModel> {
             ]),
             children: [
               SizedBox(
-                  child: FavoriteWidget(),
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  width: MediaQuery.of(context).size.width * 0.9),
+                  child: FavoriteWidget(viewModel: model),
+                  height: size.height * 0.6,
+                  width: size.width * 0.9),
             ],
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: appTheme.appColors.primary,
           );
         });
       },
@@ -111,18 +117,14 @@ class BottomMenuView extends ViewModelWidget<HomeViewModel> {
             ),
             child: Text(
               isDepartute ? "乗車" : "降車",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+              style: appTheme.textTheme.h40.accent().bold(),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
             child: Text(
               isDepartute ? model.origin : model.destination,
-              style:
-                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
+              style: appTheme.textTheme.h40.accent(),
             ),
           ),
         ],
