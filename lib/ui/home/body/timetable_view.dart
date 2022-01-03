@@ -43,6 +43,8 @@ class TimetableView extends ViewModelWidget<HomeViewModel> {
                       color: appTheme.appColors.background,
                     ),
                     child: new RefreshIndicator(
+                      backgroundColor: appTheme.appColors.accent,
+                      color: appTheme.appColors.blue,
                       onRefresh: viewModel.onRefresh,
                       child: ListView.builder(
                         itemCount: viewModel.timetables[tab.text]!.length,
