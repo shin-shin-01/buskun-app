@@ -6,16 +6,13 @@ import 'package:http/http.dart' as http;
 import '../../services_locator.dart';
 import '../../service/authentication.dart';
 import '../../service/firestore_service.dart';
-import '../../service/navigation.dart';
 import '../../model/timetable.dart';
 import '../../model/bus_pair.dart';
-import '../../ui/login/login.dart';
 
 ///
 class HomeViewModel extends BaseViewModel {
   final _firestore = servicesLocator<FirestoreService>();
   final _auth = servicesLocator<AuthService>();
-  final _navigation = servicesLocator<NavigationService>();
 
   // 時刻表の色付け
   Map<String, Color> lineColor = {
