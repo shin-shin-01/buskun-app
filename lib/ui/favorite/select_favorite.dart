@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trainkun/service/navigation.dart';
 import 'package:trainkun/ui/home/home_view.dart';
+import 'package:trainkun/ui/theme/app_text_theme.dart';
+import 'package:trainkun/ui/theme/app_theme.dart';
 import '../../services_locator.dart';
 import '../home/home_viewmodel.dart';
 import '../../model/bus_pair.dart';
@@ -18,7 +20,7 @@ class SelectFavoriteWidget extends StatelessWidget {
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: appTheme.appColors.primary,
           ),
           child: ListView.builder(
             itemCount: model.busPairs.length,
@@ -46,7 +48,7 @@ class BusPairCard extends StatelessWidget {
       height: 70,
       child: Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: isFavorite ? Colors.blue : Theme.of(context).accentColor,
+          color: isFavorite ? Colors.blue : appTheme.appColors.accent,
           child: new InkWell(
             onTap: () {
               isFavorite
@@ -77,15 +79,15 @@ class BusPairCard extends StatelessWidget {
       children: [
         Text(isDepartute ? "乗車: " : "降車: ",
             style: isFavorite
-                ? Theme.of(context).textTheme.bodyText1
-                : Theme.of(context).textTheme.bodyText2),
+                ? appTheme.textTheme.h40.accent()
+                : appTheme.textTheme.h40.primary()),
         Padding(
           padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
           child: Text(
               (isDepartute ^ model.isReverse) ? busPair.first : busPair.second,
               style: isFavorite
-                  ? Theme.of(context).textTheme.bodyText1
-                  : Theme.of(context).textTheme.bodyText2),
+                  ? appTheme.textTheme.h40.accent()
+                  : appTheme.textTheme.h40.primary()),
         )
       ],
     );

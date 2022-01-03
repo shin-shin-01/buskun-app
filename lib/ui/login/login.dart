@@ -2,6 +2,7 @@ import 'package:stacked/stacked.dart';
 import 'package:trainkun/shared/loading.dart';
 
 import 'package:flutter/material.dart';
+import 'package:trainkun/ui/theme/app_theme.dart';
 
 import 'login_viewmodel.dart';
 
@@ -17,7 +18,7 @@ class LoginView extends StatelessWidget {
       builder: (context, model, child) => model.isBusy
           ? Loading()
           : Scaffold(
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: appTheme.appColors.primary,
               body: SafeArea(
                 child: Container(
                   child: Column(

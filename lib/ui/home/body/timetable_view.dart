@@ -3,6 +3,8 @@ import 'package:share/share.dart';
 import 'package:stacked/stacked.dart';
 import 'package:trainkun/model/timetable.dart';
 import 'package:trainkun/ui/home/home_viewmodel.dart';
+import 'package:trainkun/ui/theme/app_text_theme.dart';
+import 'package:trainkun/ui/theme/app_theme.dart';
 
 // 時刻表を表示する Widget
 class TimetableView extends ViewModelWidget<HomeViewModel> {
@@ -17,13 +19,13 @@ class TimetableView extends ViewModelWidget<HomeViewModel> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: appTheme.appColors.primary,
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(20),
               child: TabBar(
-                indicatorColor: Theme.of(context).primaryColor,
-                labelColor: Theme.of(context).accentColor,
-                unselectedLabelColor: Theme.of(context).accentColor,
+                indicatorColor: appTheme.appColors.primary,
+                labelColor: appTheme.appColors.accent,
+                unselectedLabelColor: appTheme.appColors.accent,
                 labelStyle: TextStyle(fontSize: 12),
                 tabs: tabs,
               ),
@@ -33,10 +35,10 @@ class TimetableView extends ViewModelWidget<HomeViewModel> {
         // 時刻表カード一覧
         body: TabBarView(
           children: tabs
-              .map((tab) => Container(
-                  width: double.infinity,
+              .map(
+                (tab) => Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
+                    color: appTheme.appColors.background,
                   ),
                   child: new RefreshIndicator(
                     onRefresh: viewModel.onRefresh,
@@ -48,7 +50,9 @@ class TimetableView extends ViewModelWidget<HomeViewModel> {
                         );
                       },
                     ),
-                  )))
+                  ),
+                ),
+              )
               .toList(),
         ),
       ),
@@ -71,7 +75,7 @@ class TimetableCard extends ViewModelWidget<HomeViewModel> {
       height: 70,
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Theme.of(context).accentColor,
+        color: appTheme.appColors.accent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
@@ -84,13 +88,17 @@ class TimetableCard extends ViewModelWidget<HomeViewModel> {
             padding: EdgeInsets.all(10),
             child: Row(
               children: [
-                Text(timetable.line,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: viewModel.lineColor[timetable.line])),
+                Text(
+                  timetable.line,
+                  style: appTheme.textTheme.h40.bold().copyWith(
+                        color: viewModel.lineColor[timetable.line],
+                      ),
+                ),
                 Container(
                   child: VerticalDivider(
-                      thickness: 3, color: viewModel.lineColor[timetable.line]),
+                    thickness: 3,
+                    color: viewModel.lineColor[timetable.line],
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 5),
@@ -101,18 +109,12 @@ class TimetableCard extends ViewModelWidget<HomeViewModel> {
                         width: 65,
                         child: Text(
                           timetable.departureAt,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(fontSize: 22),
+                          style: appTheme.textTheme.h50.primary(),
                         ),
                       ),
                       Text(
                         " / " + timetable.arriveAt,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(fontSize: 18),
+                        style: appTheme.textTheme.h40.primary(),
                       ),
                     ],
                   ),

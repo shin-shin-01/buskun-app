@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:trainkun/ui/theme/app_theme.dart';
 
 import 'services_locator.dart';
 import './service/navigation.dart';
@@ -18,31 +19,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// - #FF353537 (Black)
-    /// - #FFFFFAFA (White）
-    /// - #FFEEEEEE (defaultBackground grey)
-    final appTheme = ThemeData(
-      primaryColor: Color(0xFF353537),
-      accentColor: Color(0xFFFFFAFA),
-      backgroundColor: Color(0xFFEEEEEE),
-      textTheme: TextTheme(
-          bodyText1: TextStyle(
-            color: Color(0xFFFFFAFA),
-            fontFamily: 'Poppins',
-            fontSize: 15,
-          ),
-          bodyText2: TextStyle(
-            color: Color(0xFF353537),
-            fontFamily: 'Poppins',
-            fontSize: 15,
-          )),
-    );
-
     return MaterialApp(
-        title: 'Trainkun',
-        theme: appTheme,
-        navigatorKey: _navigation.navigatorKey,
-        onGenerateRoute: NavigationService.generateRoute,
-        initialRoute: StartUpView.routeName);
+      title: 'Trainkun',
+      theme: AppTheme.main().data,
+      navigatorKey: _navigation.navigatorKey,
+      onGenerateRoute: NavigationService.generateRoute,
+      initialRoute: StartUpView.routeName,
+    );
   }
 }
