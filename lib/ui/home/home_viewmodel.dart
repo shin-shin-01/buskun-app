@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:http/http.dart' as http;
+import 'package:trainkun/ui/theme/app_theme.dart';
 
 import '../../services_locator.dart';
 import '../../service/authentication.dart';
@@ -16,9 +17,9 @@ class HomeViewModel extends BaseViewModel {
 
   // 時刻表の色付け
   Map<String, Color> lineColor = {
-    "九州大学線〔周船寺経由〕": Color(0xFF50998F),
-    "九州大学線〔学園通経由〕": Color(0xFFC67B82),
-    "九州大学線〔横浜西経由〕": Color(0xFF5B5E7A),
+    "九州大学線〔周船寺経由〕": appTheme.appColors.firstLine,
+    "九州大学線〔学園通経由〕": appTheme.appColors.secondLine,
+    "九州大学線〔横浜西経由〕": appTheme.appColors.thirdLine,
   };
 
   // バスを乗車降車を逆にするか？
