@@ -113,7 +113,7 @@ class BottomMenuView extends ViewModelWidget<HomeViewModel> {
             padding: EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: Colors.blue, width: 2),
+              border: Border.all(color: appTheme.appColors.blue, width: 2),
             ),
             child: Text(
               isDepartute ? "乗車" : "降車",
