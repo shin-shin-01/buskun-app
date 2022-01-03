@@ -36,19 +36,22 @@ class TimetableView extends ViewModelWidget<HomeViewModel> {
         body: TabBarView(
           children: tabs
               .map(
-                (tab) => Container(
-                  decoration: BoxDecoration(
-                    color: appTheme.appColors.background,
-                  ),
-                  child: new RefreshIndicator(
-                    onRefresh: viewModel.onRefresh,
-                    child: ListView.builder(
-                      itemCount: viewModel.timetables[tab.text]!.length,
-                      itemBuilder: (_, i) {
-                        return TimetableCard(
-                          timetable: viewModel.timetables[tab.text]![i],
-                        );
-                      },
+                (tab) => Padding(
+                  padding: EdgeInsets.fromLTRB(6, 10, 6, 0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: appTheme.appColors.background,
+                    ),
+                    child: new RefreshIndicator(
+                      onRefresh: viewModel.onRefresh,
+                      child: ListView.builder(
+                        itemCount: viewModel.timetables[tab.text]!.length,
+                        itemBuilder: (_, i) {
+                          return TimetableCard(
+                            timetable: viewModel.timetables[tab.text]![i],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
